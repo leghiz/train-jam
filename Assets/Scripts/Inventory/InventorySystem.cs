@@ -29,7 +29,7 @@ public class InventoryController : MonoBehaviour
             Debug.Log(inventoryOpen ? "Инвентарь открыт" : "Инвентарь закрыт");
         }
 
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current.fKey.wasPressedThisFrame)
             PickUpItem();
 
         if (!inventoryOpen)
@@ -61,16 +61,9 @@ public class InventoryController : MonoBehaviour
         Debug.Log($"Выбрана ячейка {index + 1}");
     }
 
+    
     private void PickUpItem()
     {
-        int emptySlot = System.Array.IndexOf(slots, null);
-
-        if (emptySlot == -1)
-        {
-            Debug.Log("Инвентарь заполнен!");
-            return;
-        }
-
         Collider[] colliders = Physics.OverlapSphere(
             transform.position,
             pickupRadius,
@@ -105,12 +98,28 @@ public class InventoryController : MonoBehaviour
             Debug.Log("Рядом нет предметов!");
             return;
         }
+        
+        if (nearestItem.Type == ItemType.Key)
+        {
+            playerStats.TakeKey();
+            Destroy(nearestItem.gameObject);
+            return;
+        }
+        
+        int emptySlot = System.Array.IndexOf(slots, null);
+
+        if (emptySlot == -1)
+        {
+            Debug.Log("Инвентарь заполнен!");
+            return;
+        }
 
         slots[emptySlot] = nearestItem;
         nearestItem.gameObject.SetActive(false);
 
         Debug.Log($"Подобран предмет: {nearestItem.Type}");
     }
+
 
     private void UseItem()
     {

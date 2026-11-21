@@ -3,7 +3,8 @@ using UnityEngine;
 public enum ItemType
 {
     Medkit,
-    Cigarettes
+    Cigarettes,
+    Key
 }
 
 public class ItemPickup : MonoBehaviour
