@@ -33,6 +33,9 @@ public class TrainRunConfig : ScriptableObject
 
     [Min(0f)] public float minEnemyDistance = 5f;
 
+    [Header("Оружие")]
+    public WeaponSpawn[] weaponSpawns = Array.Empty<WeaponSpawn>();
+
     private void OnValidate()
     {
         startWagon?.Validate();
@@ -40,6 +43,14 @@ public class TrainRunConfig : ScriptableObject
         foreach (var w in storyWagons) w?.Validate();
         foreach (var w in randomWagons) w?.Validate();
     }
+}
+
+[Serializable]
+public class WeaponSpawn
+{
+    public WeaponData weapon;
+    public bool countFromEnd;
+    [Min(0)] public int wagonIndex;
 }
 
 [Serializable]

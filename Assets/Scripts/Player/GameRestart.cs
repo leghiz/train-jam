@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class GameRestart : MonoBehaviour
 {
     private PlayerStats playerStats;
-    private InventoryController inventory;
+    private InventorySystem inventory;
     private PlayerMovement playerMovement;
     private TrainGenerator trainGenerator;
 
@@ -14,7 +14,7 @@ public class GameRestart : MonoBehaviour
     private void Awake()
     {
         playerStats = GetComponent<PlayerStats>();
-        inventory = GetComponent<InventoryController>();
+        inventory = GetComponent<InventorySystem>();
         playerMovement = GetComponent<PlayerMovement>();
 
         trainGenerator = FindFirstObjectByType<TrainGenerator>();
