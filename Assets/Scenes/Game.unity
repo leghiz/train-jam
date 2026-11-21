@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &25791340
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &80566721
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &85993865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3775,7 +3775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 1
+  item: {fileID: 0}
 --- !u!1 &352462336
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,7 +5740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &530815764
 GameObject:
   m_ObjectHideFlags: 0
@@ -6380,7 +6380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &565140835
 GameObject:
   m_ObjectHideFlags: 0
@@ -7444,7 +7444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 1
+  item: {fileID: 0}
 --- !u!1 &660687442
 GameObject:
   m_ObjectHideFlags: 0
@@ -8118,7 +8118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &707866674
 GameObject:
   m_ObjectHideFlags: 0
@@ -8682,7 +8682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &773765495
 GameObject:
   m_ObjectHideFlags: 0
@@ -11815,6 +11815,8 @@ GameObject:
   - component: {fileID: 971510691}
   - component: {fileID: 971510687}
   - component: {fileID: 971510686}
+  - component: {fileID: 971510692}
+  - component: {fileID: 971510693}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -11851,7 +11853,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryController
   playerStats: {fileID: 971510687}
-  pickupRadius: 2
+  slotCount: 4
+  startingWeapon: {fileID: 11400000, guid: 4ae713699bccfb140aeb69b532633fc5, type: 2}
+  dropDistance: 1.2
 --- !u!114 &971510687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11942,6 +11946,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRotation
   rotationSpeed: 10
+--- !u!114 &971510692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971510684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a11e6dc497d36740890f629a39a8fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
+  pickupRadius: 2
+--- !u!114 &971510693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971510684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c82ad5e8e94d34b892c029db07ff36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryInput
 --- !u!1 &973702757
 GameObject:
   m_ObjectHideFlags: 0
@@ -11988,7 +12017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 1
+  item: {fileID: 0}
 --- !u!1 &978056985
 GameObject:
   m_ObjectHideFlags: 0
@@ -12451,7 +12480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &1054318706
 GameObject:
   m_ObjectHideFlags: 0
@@ -15576,7 +15605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 1
+  item: {fileID: 0}
 --- !u!1 &1324409995
 GameObject:
   m_ObjectHideFlags: 0
@@ -20856,7 +20885,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1692500049}
   - component: {fileID: 1692500048}
-  - component: {fileID: 1692500047}
   m_Layer: 0
   m_Name: Train
   m_TagString: Untagged
@@ -20864,18 +20892,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1692500047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692500046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e90dbfe5b172374a94bdd357216e82f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TempNextWagonKey
 --- !u!114 &1692500048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23730,7 +23746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &1904513975
 GameObject:
   m_ObjectHideFlags: 0
@@ -25119,7 +25135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &2043979452
 GameObject:
   m_ObjectHideFlags: 0
@@ -25425,7 +25441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &2069180057
 GameObject:
   m_ObjectHideFlags: 0
@@ -25585,7 +25601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab25105603f74a4695da6542b79e537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemType: 0
+  item: {fileID: 0}
 --- !u!1 &2075939564
 GameObject:
   m_ObjectHideFlags: 0

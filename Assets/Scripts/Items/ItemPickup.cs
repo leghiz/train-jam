@@ -1,15 +1,8 @@
 using UnityEngine;
 
-public enum ItemType
-{
-    Medkit,
-    Cigarettes,
-    Key
-}
-
 public class ItemPickup : MonoBehaviour
 {
-    [SerializeField] private ItemType itemType;
+    [SerializeField] private ItemData item;
 
-    public ItemType Type => itemType;
+    public ItemData Item => item;
 }

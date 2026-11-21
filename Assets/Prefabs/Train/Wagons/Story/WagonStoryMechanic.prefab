@@ -871,6 +871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   itemType: 2
+  item: {fileID: 11400000, guid: 1dac7310b5c436e47963d6dd40a572de, type: 2}
 --- !u!1 &8350724187879882673
 GameObject:
   m_ObjectHideFlags: 0
