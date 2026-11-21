@@ -83,3 +83,10 @@ MonoBehaviour:
     minWagonIndex: 1
   keyHolderPrefab: {fileID: 3594436533046180456, guid: 4f1f1f1e36f36864e8267238e789ff64, type: 3}
   minEnemyDistance: 5
+  weaponSpawns:
+  - weapon: {fileID: 11400000, guid: 0f8c633e375d6724181b287d8198bb80, type: 2}
+    countFromEnd: 0
+    wagonIndex: 2
+  - weapon: {fileID: 11400000, guid: 20e1ebb1a78593e478086f7828d7f0f0, type: 2}
+    countFromEnd: 1
+    wagonIndex: 1

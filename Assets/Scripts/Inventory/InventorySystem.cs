@@ -1,173 +1,140 @@
-
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class InventoryController : MonoBehaviour
+public class InventorySystem : MonoBehaviour
 {
     [SerializeField] private PlayerStats playerStats;
-    [SerializeField] private float pickupRadius = 2f;
+    [SerializeField, Min(1)] private int slotCount = 4;
+    [SerializeField] private WeaponData startingWeapon;
+    [SerializeField] private float dropDistance = 1.2f;
 
-    private ItemPickup[] slots = new ItemPickup[4];
+    private ItemData[] slots;
+    private TrainGenerator generator;
 
-    private int selectedSlot = 0;
-    private bool inventoryOpen = false;
+    public event Action Changed;
+
+    public IReadOnlyList<ItemData> Slots => slots;
+    public int SelectedSlot { get; private set; }
+    public WeaponData Weapon { get; private set; }
 
     private void Awake()
     {
         if (playerStats == null)
             playerStats = GetComponent<PlayerStats>();
+
+        slots = new ItemData[slotCount];
+        Weapon = startingWeapon;
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Keyboard.current == null)
-            return;
-
-        if (Keyboard.current.tabKey.wasPressedThisFrame)
-        {
-            inventoryOpen = !inventoryOpen;
-            Debug.Log(inventoryOpen ? "Инвентарь открыт" : "Инвентарь закрыт");
-        }
-
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-            PickUpItem();
-
-        if (!inventoryOpen)
-            return;
-
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
-            SelectSlot(0);
-
-        if (Keyboard.current.digit2Key.wasPressedThisFrame)
-            SelectSlot(1);
-
-        if (Keyboard.current.digit3Key.wasPressedThisFrame)
-            SelectSlot(2);
-
-        if (Keyboard.current.digit4Key.wasPressedThisFrame)
-            SelectSlot(3);
-
-        if (Keyboard.current.qKey.wasPressedThisFrame)
-            UseItem();
-
-        if (Keyboard.current.gKey.wasPressedThisFrame)
-            DropItem();
+        generator = FindFirstObjectByType<TrainGenerator>();
     }
 
-    private void SelectSlot(int index)
+    public WeaponData EquipWeapon(WeaponData weapon)
     {
-        selectedSlot = index;
-
-        Debug.Log($"Выбрана ячейка {index + 1}");
+        WeaponData previous = Weapon;
+        Weapon = weapon;
+        WeaponProgress.Unlock(weapon);
+        Changed?.Invoke();
+        return previous;
     }
 
-    private void PickUpItem()
+    public bool Add(ItemData item)
     {
-        int emptySlot = System.Array.IndexOf(slots, null);
-
-        if (emptySlot == -1)
-        {
-            Debug.Log("Инвентарь заполнен!");
-            return;
-        }
-
-        Collider[] colliders = Physics.OverlapSphere(
-            transform.position,
-            pickupRadius,
-            ~0,
-            QueryTriggerInteraction.Collide
-        );
-
-        ItemPickup nearestItem = null;
-        float nearestDistance = float.MaxValue;
-
-        foreach (Collider col in colliders)
-        {
-            ItemPickup item = col.GetComponentInParent<ItemPickup>();
-
-            if (item == null)
-                continue;
-
-            float distance = Vector3.Distance(
-                transform.position,
-                item.transform.position
-            );
-
-            if (distance < nearestDistance)
-            {
-                nearestDistance = distance;
-                nearestItem = item;
-            }
-        }
-
-        if (nearestItem == null)
-        {
-            Debug.Log("Рядом нет предметов!");
-            return;
-        }
-
-        slots[emptySlot] = nearestItem;
-        nearestItem.gameObject.SetActive(false);
-
-        Debug.Log($"Подобран предмет: {nearestItem.Type}");
-    }
-
-    private void UseItem()
-    {
-        ItemPickup item = slots[selectedSlot];
-
         if (item == null)
+            return false;
+
+        if (item.isKey)
         {
-            Debug.Log("Ячейка пуста!");
-            return;
+            playerStats.TakeKey();
+            return true;
         }
 
-        switch (item.Type)
-        {
-            case ItemType.Medkit:
-                playerStats.Heal(40);
-                break;
+        int index = Array.IndexOf(slots, null);
+        if (index < 0)
+            return false;
 
-            case ItemType.Cigarettes:
-                playerStats.ReduceStress(30);
-                break;
-        }
-
-        Destroy(item.gameObject);
-        slots[selectedSlot] = null;
+        slots[index] = item;
+        Changed?.Invoke();
+        return true;
     }
 
-    private void DropItem()
+    public void Select(int index)
     {
-        ItemPickup item = slots[selectedSlot];
+        if (index < 0 || index >= slots.Length)
+            return;
 
+        SelectedSlot = index;
+        Changed?.Invoke();
+    }
+
+    public bool Use(int index)
+    {
+        ItemData item = Get(index);
         if (item == null)
-        {
-            Debug.Log("Ячейка пуста!");
-            return;
-        }
+            return false;
 
-        Vector3 randomDirection = Quaternion.Euler(
-            0,
-            Random.Range(0f, 360f),
-            0
-        ) * Vector3.forward;
+        if (item.heal > 0f)
+            playerStats.Heal(item.heal);
 
-        Vector3 dropPosition =
-            transform.position + randomDirection * Random.Range(1.2f, 1.8f)
-                               + Vector3.up * 0.2f;
+        if (item.stressChange < 0f)
+            playerStats.ReduceStress(-item.stressChange);
+        else if (item.stressChange > 0f)
+            playerStats.AddStress(item.stressChange);
 
-        item.transform.position = dropPosition;
-        item.gameObject.SetActive(true);
+        if (item.consumeOnUse)
+            Remove(index);
 
-        slots[selectedSlot] = null;
-
-        Debug.Log($"Выброшен предмет: {item.Type}");
+        return true;
     }
 
-    private void OnDrawGizmosSelected()
+    public bool Drop(int index)
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, pickupRadius);
+        ItemData item = Get(index);
+        if (item == null || item.worldPrefab == null)
+            return false;
+
+        Remove(index);
+        Vector3 position = transform.position + transform.forward * dropDistance;
+        Transform parent = generator != null && generator.CurrentWagon != null ? generator.CurrentWagon.transform : null;
+        Instantiate(item.worldPrefab, position, Quaternion.identity, parent);
+        return true;
+    }
+
+    public ItemData Remove(int index)
+    {
+        ItemData item = Get(index);
+        if (item == null)
+            return null;
+
+        slots[index] = null;
+        Changed?.Invoke();
+        return item;
+    }
+
+    public bool Has(ItemData item)
+    {
+        return item != null && Array.IndexOf(slots, item) >= 0;
+    }
+
+    public void ResetInventory()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = null;
+        }
+
+        SelectedSlot = 0;
+        Weapon = startingWeapon;
+        Changed?.Invoke();
+
+        Debug.Log("Инвентарь очищен!");
+    }
+
+    private ItemData Get(int index)
+    {
+        return index >= 0 && index < slots.Length ? slots[index] : null;
     }
 }

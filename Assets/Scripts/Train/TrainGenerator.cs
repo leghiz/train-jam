@@ -21,6 +21,7 @@ public class TrainGenerator : MonoBehaviour
 
     public IReadOnlyList<WagonLayout> Wagons => _wagons;
     public IReadOnlyList<GameObject> KeyHolders => _keyHolders;
+    public IReadOnlyList<ItemPickup> WeaponPickups => _weaponPickups;
     public int CurrentIndex { get; private set; }
     public WagonLayout CurrentWagon => CurrentIndex >= 0 && CurrentIndex < _wagons.Count ? _wagons[CurrentIndex] : null;
     public bool HasNextWagon => CurrentIndex < _wagons.Count - 1;
@@ -28,6 +29,7 @@ public class TrainGenerator : MonoBehaviour
     private readonly List<WagonLayout> _wagons = new List<WagonLayout>();
     private readonly List<WagonEntry> _entries = new List<WagonEntry>();
     private readonly List<GameObject> _keyHolders = new List<GameObject>();
+    private readonly List<ItemPickup> _weaponPickups = new List<ItemPickup>();
     private readonly List<List<Vector3>> _enemyPositions = new List<List<Vector3>>();
     private readonly List<WagonSpace> _spaces = new List<WagonSpace>();
     private System.Random _rng;
@@ -63,6 +65,7 @@ public class TrainGenerator : MonoBehaviour
             _enemyPositions.Add(new List<Vector3>());
         }
 
+        SpawnWeapons();
         SpawnEnemies();
         SpawnLoot();
         EnterWagon(0);
@@ -80,6 +83,7 @@ public class TrainGenerator : MonoBehaviour
         _wagons.Clear();
         _entries.Clear();
         _keyHolders.Clear();
+        _weaponPickups.Clear();
         _enemyPositions.Clear();
         _spaces.Clear();
         CurrentIndex = 0;
@@ -260,6 +264,36 @@ public class TrainGenerator : MonoBehaviour
                 counts[entry] = n + 1;
                 TryPlace(entry.prefab, entry.placement, i);
             }
+        }
+    }
+
+    private void SpawnWeapons()
+    {
+        foreach (WeaponSpawn rule in config.weaponSpawns)
+        {
+            if (rule == null || rule.weapon == null || rule.weapon.worldPrefab == null)
+                continue;
+
+            int index;
+            if (WeaponProgress.IsUnlocked(rule.weapon))
+                index = 0;
+            else if (rule.countFromEnd)
+                index = _wagons.Count - 1 - rule.wagonIndex;
+            else
+                index = rule.wagonIndex;
+
+            if (index < 0 || index >= _wagons.Count)
+                continue;
+
+            GameObject obj = TryPlace(rule.weapon.worldPrefab, LootPlacement.SurfaceOnly, index);
+            if (obj == null)
+                obj = TryPlace(rule.weapon.worldPrefab, LootPlacement.FloorOnly, index);
+            if (obj == null)
+                continue;
+
+            ItemPickup pickup = obj.GetComponent<ItemPickup>();
+            if (pickup != null)
+                _weaponPickups.Add(pickup);
         }
     }
 
