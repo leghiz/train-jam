@@ -179,4 +179,19 @@ public class InventoryController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, pickupRadius);
     }
+	
+	
+    public void ResetInventory()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = null;
+        }
+
+        selectedSlot = 0;
+        inventoryOpen = false;
+
+        Debug.Log("Инвентарь очищен!");
+    }
+
 }
