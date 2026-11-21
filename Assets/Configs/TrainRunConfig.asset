@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1abdfab8d846aee47b4be808998b8ee4, type: 3}
+  m_Name: TrainRunConfig
+  m_EditorClassIdentifier: Assembly-CSharp::TrainRunConfig
+  startWagon:
+    wagon: {fileID: 8641355681930371217, guid: 2f559f7451b25cf4eaf24713cf38244a, type: 3}
+    enemyCount: {x: 0, y: 0}
+    hasKeyHolder: 0
+    lootCount: {x: 1, y: 2}
+  storyWagons:
+  - wagon: {fileID: 8482178122513585872, guid: bc15cc76c70f0dd4ea3b2c7b76642178, type: 3}
+    enemyCount: {x: 0, y: 0}
+    hasKeyHolder: 0
+    lootCount: {x: 1, y: 2}
+  - wagon: {fileID: 5462599735228741811, guid: 76ea735ab93b91440b090ad3c88134c4, type: 3}
+    enemyCount: {x: 0, y: 0}
+    hasKeyHolder: 0
+    lootCount: {x: 1, y: 2}
+  - wagon: {fileID: 2121806859214394617, guid: 33d3771ae40b65143be01e048eb54f04, type: 3}
+    enemyCount: {x: 0, y: 0}
+    hasKeyHolder: 0
+    lootCount: {x: 1, y: 2}
+  randomWagons:
+  - wagon: {fileID: 6205244513707015595, guid: e74f120dd0eb29541a0354952853e5ee, type: 3}
+    enemyCount: {x: 1, y: 2}
+    hasKeyHolder: 1
+    lootCount: {x: 2, y: 3}
+  - wagon: {fileID: 3090414215067492801, guid: d581f8f2b878aae4ab060db3617e9880, type: 3}
+    enemyCount: {x: 1, y: 2}
+    hasKeyHolder: 1
+    lootCount: {x: 2, y: 3}
+  - wagon: {fileID: 7511382600871979173, guid: cf9fc887c5f9fb14bbbea861a7b0da19, type: 3}
+    enemyCount: {x: 1, y: 2}
+    hasKeyHolder: 1
+    lootCount: {x: 5, y: 8}
+  - wagon: {fileID: 132562293489812163, guid: a3522bfd17b96954798c48b17d0dc33c, type: 3}
+    enemyCount: {x: 1, y: 2}
+    hasKeyHolder: 1
+    lootCount: {x: 5, y: 8}
+  - wagon: {fileID: 8933645203109171921, guid: b5842258277308a4faeb3d61aaad85a9, type: 3}
+    enemyCount: {x: 1, y: 2}
+    hasKeyHolder: 1
+    lootCount: {x: 5, y: 8}
+  - wagon: {fileID: 4212060093341821512, guid: 2a334ea723f88d64184bde62e418fec4, type: 3}
+    enemyCount: {x: 1, y: 2}
+    hasKeyHolder: 1
+    lootCount: {x: 1, y: 2}
+  - wagon: {fileID: 3410881815279031604, guid: edc37858ee331d34d9c82620c5475da6, type: 3}
+    enemyCount: {x: 1, y: 2}
+    hasKeyHolder: 1
+    lootCount: {x: 1, y: 2}
+  endWagon:
+    wagon: {fileID: 2387002538534035511, guid: 3fa948029c1f08b4cb3eb610ede8f5d4, type: 3}
+    enemyCount: {x: 0, y: 0}
+    hasKeyHolder: 0
+    lootCount: {x: 0, y: 0}
+  randomBeforeStory: 2
+  randomAfterStory: 2
+  spacing: 0.3
+  surfaceLootChance: 0.6
+  loot:
+  - prefab: {fileID: 7628743352661900124, guid: 74fba259c06577341984f54377298634, type: 3}
+    weight: 1
+    placement: 0
+    maxPerWagon: 0
+  - prefab: {fileID: 212732036681041631, guid: 91137b4498d1a514f916e9b4af8fdb12, type: 3}
+    weight: 1
+    placement: 0
+    maxPerWagon: 0
+  enemies:
+  - prefab: {fileID: 1985186993207405653, guid: 920cdb9648ef83c4aacede392646423d, type: 3}
+    weight: 1
+    minWagonIndex: 1
+  keyHolderPrefab: {fileID: 3594436533046180456, guid: 4f1f1f1e36f36864e8267238e789ff64, type: 3}
+  minEnemyDistance: 5
