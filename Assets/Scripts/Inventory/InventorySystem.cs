@@ -123,4 +123,19 @@ public class InventorySystem : MonoBehaviour
     {
         return index >= 0 && index < slots.Length ? slots[index] : null;
     }
+	
+	
+    public void ResetInventory()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = null;
+        }
+
+        selectedSlot = 0;
+        inventoryOpen = false;
+
+        Debug.Log("Инвентарь очищен!");
+    }
+
 }
