@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4929856475682710008}
   - component: {fileID: 5829083470703480600}
   - component: {fileID: 8318084132212150022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2958477151421217678}
-  m_Layer: 0
+  - component: {fileID: 2390642457829464620}
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,3 +147,16 @@ Transform:
   - {fileID: 8299904626775696616}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2390642457829464620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985186993207405653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16915aa9f3739647a6d9908dfa52718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyEncounter
+  encounterData: {fileID: 11400000, guid: b76d4f29b62aa0b43b4cc1e8e413f655, type: 2}
