@@ -9,8 +9,6 @@ public class Shooting : MonoBehaviour
 
     [Header("Стрельба")]
     public float fireRate = 1f;
-    public float bulletSpeed = 15f;
-    public float bulletLifetime = 3f;
     public float spawnOffset = 0.1f;
 
     private float nextFireTime;
@@ -25,6 +23,9 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
+        if (TurnManager.Instance == null || TurnManager.Instance.CurrentTurn != TurnManager.Turn.Player)
+            return;
+
         if (Mouse.current.leftButton.isPressed && Time.time >= nextFireTime)
         {
             Shoot(GetNextBulletType());
@@ -37,21 +38,16 @@ public class Shooting : MonoBehaviour
         Vector3 spawnPos = camera.transform.position + camera.transform.forward * spawnOffset;
         Quaternion spawnRotation = camera.transform.rotation;
 
-        GameObject bullet = Instantiate(bulletPrefab, spawnPos, spawnRotation);
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, spawnRotation);
 
-        Bullet bulletComp = bullet.GetComponent<Bullet>();
-        if (bulletComp != null) 
-            bulletComp.type = type;
-
-        Renderer renderer = bullet.GetComponent<Renderer>();
+        Renderer renderer = bulletObj.GetComponent<Renderer>();
         if (type == "blue")
             renderer.material.color = Color.blue;
         else
             renderer.material.color = Color.red;
 
-        Vector3 velocity = spawnRotation * Vector3.forward * bulletSpeed;
-        rb.linearVelocity = velocity;
+        Bullet bullet = bulletObj.GetComponent<Bullet>();
+        if (bullet != null) bullet.Init(camera.transform.forward, type);
     }
 
     private string GetNextBulletType()

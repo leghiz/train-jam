@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public string type;
+    [Header("Характеристики пули")]
+    public float speed = 15f;
+    public float lifetime = 5f;
     public int damage = 25;
+    public string type;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -39,5 +42,20 @@ public class Bullet : MonoBehaviour
         {
             enemy.TakeHit(type, damage, collision.gameObject);
         }
+
+        Player player = collision.gameObject.GetComponentInParent<Player>();
+        if (player != null)
+        {
+            player.TakeDamage(damage);
+        }
+    }
+
+    public void Init(Vector3 direction, string bulletType)
+    {
+        type = bulletType;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.linearVelocity = direction.normalized * speed;
     }
 }

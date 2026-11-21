@@ -15,7 +15,7 @@ public class EnemyArmor : MonoBehaviour
         if (type == "blue")
         {
             health -= (int)(0.1f * damage);
-            Debug.Log(health);
+            Debug.Log($"У {gameObject} осталось {health} HP");
         }
 
         else
@@ -25,7 +25,7 @@ public class EnemyArmor : MonoBehaviour
                 return;
 
             health -= (int)(GetMultiplier(hitObject) * damage);
-            Debug.Log(health);
+            Debug.Log($"У {gameObject} осталось {health} HP");
 
         }
 
