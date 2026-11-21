@@ -43,7 +43,7 @@ public class InventorySystem : MonoBehaviour
 
     public bool Add(ItemData item)
     {
-        if (item == null || item is WeaponData)
+        if (item == null)
             return false;
 
         if (item.isKey)
@@ -119,12 +119,6 @@ public class InventorySystem : MonoBehaviour
         return item != null && Array.IndexOf(slots, item) >= 0;
     }
 
-    private ItemData Get(int index)
-    {
-        return index >= 0 && index < slots.Length ? slots[index] : null;
-    }
-	
-	
     public void ResetInventory()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -132,10 +126,15 @@ public class InventorySystem : MonoBehaviour
             slots[i] = null;
         }
 
-        selectedSlot = 0;
-        inventoryOpen = false;
+        SelectedSlot = 0;
+        Weapon = startingWeapon;
+        Changed?.Invoke();
 
         Debug.Log("Инвентарь очищен!");
     }
 
+    private ItemData Get(int index)
+    {
+        return index >= 0 && index < slots.Length ? slots[index] : null;
+    }
 }

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: key
   displayName: "\u041A\u043B\u044E\u0447"
-  icon: {fileID: 0}
   worldPrefab: {fileID: 0}
   heal: 0
   stressChange: 0

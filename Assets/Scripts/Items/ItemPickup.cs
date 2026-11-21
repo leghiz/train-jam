@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    [SerializeField] private ItemData item;
+    [SerializeField] private PickupData item;
 
-    public ItemData Item => item;
+    public PickupData Item => item;
 }

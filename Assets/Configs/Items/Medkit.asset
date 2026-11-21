@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: medkit
   displayName: "\u0410\u043F\u0442\u0435\u0447\u043A\u0430"
-  icon: {fileID: 0}
   worldPrefab: {fileID: 7628743352661900124, guid: 74fba259c06577341984f54377298634, type: 3}
   heal: 40
   stressChange: 0

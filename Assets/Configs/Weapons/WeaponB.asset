@@ -14,9 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   id: weapon_b
   displayName: "\u041E\u0440\u0443\u0436\u0438\u0435 B"
-  icon: {fileID: 0}
   worldPrefab: {fileID: 8358393583094786295, guid: 64269caa828822144bb2ab47753347bc, type: 3}
-  heal: 0
-  stressChange: 0
-  isKey: 0
-  consumeOnUse: 0

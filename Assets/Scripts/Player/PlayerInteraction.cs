@@ -52,7 +52,7 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        if (!inventory.Add(nearest.Item))
+        if (!inventory.Add(nearest.Item as ItemData))
         {
             Debug.Log("Инвентарь полон");
             return;

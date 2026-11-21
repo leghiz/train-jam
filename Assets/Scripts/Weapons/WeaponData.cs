@@ -1,6 +1,6 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "TrainJam/Weapon")]
-public class WeaponData : ItemData
+public class WeaponData : PickupData
 {
 }

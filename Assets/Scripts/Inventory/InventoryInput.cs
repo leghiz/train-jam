@@ -69,7 +69,7 @@ public class InventoryInput : MonoBehaviour
         return string.Join(", ", names) + $" | в руках: {NameOf(inventory.Weapon)}";
     }
 
-    private static string NameOf(ItemData item)
+    private static string NameOf(PickupData item)
     {
         return item != null ? item.displayName : "—";
     }
