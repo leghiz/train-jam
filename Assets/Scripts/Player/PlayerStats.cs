@@ -7,6 +7,13 @@ public class PlayerStats : MonoBehaviour
 
     public float Health { get; private set; } = 100f;
     public float Stress { get; private set; } = 0f;
+    public bool HasKey { get; private set; }
+
+    public void TakeKey()
+    {
+        HasKey = true;
+        Debug.Log("Ключ получен!");
+    }
 
     public void Heal(float amount)
     {
