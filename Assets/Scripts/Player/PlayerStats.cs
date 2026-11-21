@@ -31,4 +31,13 @@ public class PlayerStats : MonoBehaviour
         Stress = Mathf.Clamp(Stress + amount, 0, maxStress);
         Debug.Log($"Стресс: {Stress}");
     }
+    
+    public void CopyFrom(PlayerStats source)
+    {
+        if (source == null)
+            return;
+
+        Health = Mathf.Clamp(source.Health, 0, maxHealth);
+        Stress = Mathf.Clamp(source.Stress, 0, maxStress);
+    }
 }
