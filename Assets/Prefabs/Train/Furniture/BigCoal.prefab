@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigCoal
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 99eefa8aa71ed504a9e9b81e0834d949, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

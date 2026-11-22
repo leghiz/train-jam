@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e83ea4fa8c7db554eb2d1561c24a1b4b, type: 3}
-  m_Name: MiniBoss
+  m_Name: EnemyMiniBoss
   m_EditorClassIdentifier: Assembly-CSharp::EncounterData
   battleEnemyPrefabs:
-  - {fileID: 7564682034146509442, guid: a6d754293bb6c574ebb5834466013573, type: 3}
-  - {fileID: 7047159749849998778, guid: d43f5a63f8c40594497378b13d6a7a7b, type: 3}
-  - {fileID: 7047159749849998778, guid: d43f5a63f8c40594497378b13d6a7a7b, type: 3}
+  - {fileID: 1985186993207405653, guid: c438c3c32b0065d49bfb5602acccfe4e, type: 3}
+  - {fileID: 1985186993207405653, guid: 763e00d942fd06341b7e9ff48c721a4e, type: 3}
+  - {fileID: 1985186993207405653, guid: 763e00d942fd06341b7e9ff48c721a4e, type: 3}
   loot:
   - {fileID: 988941463693304924, guid: 3654e6822615e1e45a3c568b04e2b94b, type: 3}
+  randomLoot: []
