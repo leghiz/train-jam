@@ -21,6 +21,7 @@ public class PlayerCombatTargeting : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerRotation playerRotation;
+    [SerializeField] private Animator animator;
 
     private Rigidbody rb;
 
@@ -39,6 +40,9 @@ public class PlayerCombatTargeting : MonoBehaviour
 
         if (playerRotation == null)
             playerRotation = GetComponent<PlayerRotation>();
+        
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -77,6 +81,9 @@ public class PlayerCombatTargeting : MonoBehaviour
 
         currentTarget = null;
         
+        if (animator != null)
+            animator.SetBool("IsAiming", true);
+        
         if (playerMovement != null)
             playerMovement.enabled = false;
         
@@ -91,6 +98,9 @@ public class PlayerCombatTargeting : MonoBehaviour
     {
         isAiming = false;
         currentTarget = null;
+        
+        if (animator != null)
+            animator.SetBool("IsAiming", false); 
         
         if (playerMovement != null)
             playerMovement.enabled = true;

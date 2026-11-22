@@ -5,13 +5,15 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
-
+    
     private Rigidbody rb;
+    private Animator animator;
     private Vector2 input;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>(); 
     }
 
     private void Update()
@@ -38,6 +40,11 @@ public class PlayerMovement : MonoBehaviour
             input.x -= 1;
 
         input = input.normalized;
+        if (animator != null)
+        {
+            bool isRunning = input.magnitude > 0.1f;
+            animator.SetBool("IsRunning", isRunning);
+        }
     }
 
     private void FixedUpdate()
