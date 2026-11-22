@@ -35,10 +35,12 @@ public class Shooting : MonoBehaviour
 
     void Shoot(string type)
     {
-        Vector3 spawnPos = camera.transform.position + camera.transform.forward * spawnOffset;
-        Quaternion spawnRotation = camera.transform.rotation;
+        Ray ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Vector3 spawnPos = ray.origin + ray.direction * spawnOffset;
+        Quaternion spawnRotation = Quaternion.LookRotation(ray.direction);
 
         GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, spawnRotation);
+        IgnorePlayer(bulletObj);
 
         Renderer renderer = bulletObj.GetComponent<Renderer>();
         if (type == "blue")
@@ -47,7 +49,27 @@ public class Shooting : MonoBehaviour
             renderer.material.color = Color.red;
 
         Bullet bullet = bulletObj.GetComponent<Bullet>();
-        if (bullet != null) bullet.Init(camera.transform.forward, type);
+        if (bullet != null) bullet.Init(ray.direction, type);
+    }
+
+    private void IgnorePlayer(GameObject bulletObj)
+    {
+        Collider bulletCollider = bulletObj.GetComponent<Collider>();
+        if (bulletCollider == null)
+            return;
+
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players)
+        {
+            if (player.scene != gameObject.scene)
+                continue;
+
+            foreach (Collider playerCollider in player.GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(bulletCollider, playerCollider);
+            }
+        }
     }
 
     private string GetNextBulletType()
