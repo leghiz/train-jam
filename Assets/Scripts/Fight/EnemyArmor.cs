@@ -5,10 +5,8 @@ public class EnemyArmor : MonoBehaviour
     [Header("Здоровье")]
     public int health = 100;
 
-    [Header("Множители урона по частям тела")]
-    public float headMultiplier = 1.2f;
-    public float bodyMultiplier = 1f;
-    public float legsMultiplier = 0.7f;
+    [Header("Конфиг")]
+    public BattleConfig config;
 
     public void TakeHit(string type, int damage, GameObject hitObject)
     {
@@ -19,13 +17,17 @@ public class EnemyArmor : MonoBehaviour
 
         if (armor != null)
         {
-            armor.TakeHit(type, damage);
+            float armorMultiplier = config.normalArmorMultiplier;
+            if (type == "blue")
+                armorMultiplier = config.armorPiercingArmorMultiplier;
+
+            armor.TakeHit((int)(armorMultiplier * damage));
             return;
         }
 
         if (type == "blue")
         {
-            health -= (int)(0.1f * damage);
+            health -= (int)(config.armorPiercingBodyMultiplier * damage);
             Debug.Log($"У {gameObject} осталось {health} HP");
         }
 
@@ -48,9 +50,9 @@ public class EnemyArmor : MonoBehaviour
     {
         switch (hitObject.tag)
         {
-            case "Head": return headMultiplier;
-            case "Body": return bodyMultiplier;
-            case "Legs": return legsMultiplier;
+            case "Head": return config.headMultiplier;
+            case "Body": return config.bodyMultiplier;
+            case "Legs": return config.legsMultiplier;
             default: return 1f;
         }
     }

@@ -15,3 +15,5 @@ MonoBehaviour:
   id: weapon_a
   displayName: "\u041E\u0440\u0443\u0436\u0438\u0435 A"
   worldPrefab: {fileID: 2762009433059285833, guid: fdad99a2f28404c4e8ffe2fa2be987d5, type: 3}
+  magazineSize: 1
+  reloadTime: 1.5

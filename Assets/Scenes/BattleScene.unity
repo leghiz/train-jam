@@ -1272,6 +1272,7 @@ GameObject:
   - component: {fileID: 1080488006}
   - component: {fileID: 1080488007}
   - component: {fileID: 1080488008}
+  - component: {fileID: 1080488009}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1425,7 +1426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shooting
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
-  fireRate: 1
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
   spawnOffset: 0.1
 --- !u!114 &1080488008
 MonoBehaviour:
@@ -1442,6 +1443,21 @@ MonoBehaviour:
   maxYaw: 3
   maxPitch: 2
   smoothness: 5
+--- !u!114 &1080488009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080488001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097d7d5ff223af744aa11b87ae26015d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ammo
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
+  defaultMagazineSize: 1
+  defaultReloadTime: 1.5
 --- !u!1 &1106496071
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,6 +2019,8 @@ GameObject:
   - component: {fileID: 1378220247}
   - component: {fileID: 1378220246}
   - component: {fileID: 1378220248}
+  - component: {fileID: 1378220249}
+  - component: {fileID: 1378220250}
   m_Layer: 0
   m_Name: BattleSetup
   m_TagString: Untagged
@@ -2055,8 +2073,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8f5f768cafddd48ae3c63e4467aab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleEnd
-  endDelay: 1
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
   lootSpread: 0.8
+--- !u!114 &1378220249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378220245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf6597035f601d41aa63b5ef7cb7c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerTurnActions
+--- !u!114 &1378220250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378220245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25d7367a2287534cb47b106dada3e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleDebugView
 --- !u!1 &1430545338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2849,12 +2891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bfe07681b8eec43a31197b2b2ebf3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
-  playerTurnDuration: 5
-  enemyAimDelay: 0.8
-  enemyAfterFireDelay: 0.8
-  playerTurnChance: 0.35
-  maxConsecutiveEnemyTurns: 3
-  queueLength: 5
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!1 &2065676900
 GameObject:
   m_ObjectHideFlags: 0

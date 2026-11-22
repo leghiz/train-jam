@@ -126,8 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
   durability: 40
-  armorPiercingMultiplier: 1
-  normalMultiplier: 0.4
 --- !u!1 &2188132380319728084
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,8 +308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
   durability: 60
-  armorPiercingMultiplier: 1
-  normalMultiplier: 0.4
 --- !u!1 &4960333106257074025
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,9 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyArmor
   health: 100
-  headMultiplier: 1.2
-  bodyMultiplier: 1
-  legsMultiplier: 0.7
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!114 &3440298250684563838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,6 +565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   spawnOffset: 0.5
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!1 &7570561103016363376
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,5 +692,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
   durability: 100
-  armorPiercingMultiplier: 1
-  normalMultiplier: 0.4

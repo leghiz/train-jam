@@ -63,6 +63,8 @@ public class BattleManager : MonoBehaviour
         BattleContext.SetEncounter(enemy.EncounterData);
         BattleContext.SetEnemy(enemy);
         BattleContext.SetEnemyAttackedFirst(enemyAttackedFirst);
+
+        BattleContext.SetInventory(originalPlayerStats.GetComponent<InventorySystem>());
         
         if (playerTargeting != null)
             playerTargeting.StopAiming();

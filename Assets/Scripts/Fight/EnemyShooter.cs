@@ -8,6 +8,9 @@ public class EnemyShooter : MonoBehaviour
     [Header("Точка выстрела врага")]
     public float spawnOffset = 0.5f;
 
+    [Header("Конфиг")]
+    public BattleConfig config;
+
     public void Shoot()
     {
         GameObject player = FindPlayer();
@@ -25,6 +28,8 @@ public class EnemyShooter : MonoBehaviour
         GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, Quaternion.LookRotation(dir));
 
         Bullet bullet = bulletObj.GetComponent<Bullet>();
+        if (bullet != null)
+            bullet.damage = config.enemyDamage;
         if (bullet != null) 
             bullet.Init(dir, "red");
     }

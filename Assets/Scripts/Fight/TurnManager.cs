@@ -9,25 +9,17 @@ public class TurnManager : MonoBehaviour
 
     public static TurnManager Instance { get; private set; }
 
-    [Header("Тайминги")]
-    public float playerTurnDuration = 5f;
-    public float enemyAimDelay = 0.8f;
-    public float enemyAfterFireDelay = 0.8f;
-
-    [Header("Случайность")]
-    public float playerTurnChance = 0.5f;
-    public int maxConsecutiveEnemyTurns = 3;
-    public int maxConsecutivePlayerTurns = 1;
-
-    [Header("Очередь")]
-    public int queueLength = 5;
+    [Header("Конфиг")]
+    public BattleConfig config;
 
     public Turn CurrentTurn { get; private set; }
     public float TimeLeft { get; private set; }
     public List<Turn> Queue { get; private set; } = new List<Turn>();
+    public bool AttackChosen { get; private set; }
 
     private int consecutiveEnemyTurns = 0;
     private int consecutivePlayerTurns = 0;
+    private bool isPlayerTurnOver;
 
     void Awake()
     {
@@ -74,7 +66,7 @@ public class TurnManager : MonoBehaviour
         else
             AddTurn(Turn.Player);
 
-        while (Queue.Count < queueLength)
+        while (Queue.Count < config.turnQueueLength)
             AddNextTurn();
     }
 
@@ -104,36 +96,53 @@ public class TurnManager : MonoBehaviour
 
     private bool RollPlayerTurn()
     {
-        if (consecutivePlayerTurns >= maxConsecutivePlayerTurns)
+        if (consecutivePlayerTurns >= config.maxConsecutivePlayerTurns)
             return false;
 
-        if (consecutiveEnemyTurns >= maxConsecutiveEnemyTurns)
+        if (consecutiveEnemyTurns >= config.maxConsecutiveEnemyTurns)
         {
             return true;
         }
 
-        return playerTurnChance > UnityEngine.Random.value;
+        return config.playerTurnChance > UnityEngine.Random.value;
     }
 
     IEnumerator PlayerTurn()
     {
         CurrentTurn = Turn.Player;
-        TimeLeft = playerTurnDuration;
+        TimeLeft = config.playerTurnDuration;
+        AttackChosen = false;
+        isPlayerTurnOver = false;
 
-        while (TimeLeft > 0f)
+        while (!AttackChosen && !isPlayerTurnOver)
+            yield return null;
+
+        while (TimeLeft > 0f && !isPlayerTurnOver)
         {
             TimeLeft -= Time.deltaTime;
             yield return null;
         }
     }
 
+    public void ChooseAttack()
+    {
+        if (CurrentTurn == Turn.Player)
+            AttackChosen = true;
+    }
+
+    public void EndPlayerTurn()
+    {
+        if (CurrentTurn == Turn.Player)
+            isPlayerTurnOver = true;
+    }
+
     IEnumerator EnemyTurn()
     {
         CurrentTurn = Turn.Enemy;
 
-        yield return new WaitForSeconds(enemyAimDelay);
+        yield return new WaitForSeconds(config.enemyAimDelay);
         ShootRandomEnemy();
-        yield return new WaitForSeconds(enemyAfterFireDelay);
+        yield return new WaitForSeconds(config.enemyAfterFireDelay);
     }
 
     private void ShootRandomEnemy()

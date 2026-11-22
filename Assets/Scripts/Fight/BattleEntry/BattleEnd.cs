@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleEnd : MonoBehaviour
 {
-    [SerializeField] private float endDelay = 1f;
+    [SerializeField] private BattleConfig config;
     [SerializeField] private float lootSpread = 0.8f;
 
     private PlayerStats battlePlayerStats;
@@ -79,7 +79,7 @@ public class BattleEnd : MonoBehaviour
         if (TurnManager.Instance != null)
             TurnManager.Instance.StopAllCoroutines();
 
-        yield return new WaitForSeconds(endDelay);
+        yield return new WaitForSeconds(config.endDelay);
 
         if (isVictory)
             RemoveDefeatedEnemy();

@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 5
+  durability: 40
 --- !u!65 &214283803
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 5
+  durability: 40
 --- !u!1 &364456173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,6 +1137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   spawnOffset: 0.5
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!114 &429056250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,9 +1151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyArmor
   health: 100
-  headMultiplier: 1.2
-  bodyMultiplier: 1
-  legsMultiplier: 0.7
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!136 &429056251
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1280,7 +1279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 5
+  durability: 40
 --- !u!65 &608267801
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1484,7 +1483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 3
+  durability: 40
 --- !u!1 &758851672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,6 +1537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   spawnOffset: 0.5
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!114 &758851675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,9 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyArmor
   health: 100
-  headMultiplier: 1.2
-  bodyMultiplier: 1
-  legsMultiplier: 0.7
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!136 &758851676
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1871,7 +1869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 2
+  durability: 40
 --- !u!1 &915151342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,7 +2093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shooting
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
-  fireRate: 1
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
   spawnOffset: 0.1
 --- !u!1 &1106496071
 GameObject:
@@ -2422,7 +2420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 2
+  durability: 40
 --- !u!65 &1381982477
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2548,7 +2546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 3
+  durability: 40
 --- !u!65 &1392536103
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2871,9 +2869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyArmor
   health: 100
-  headMultiplier: 1.2
-  bodyMultiplier: 1
-  legsMultiplier: 0.7
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!114 &1477318966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2888,6 +2884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   spawnOffset: 0.5
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!1 &1515227093
 GameObject:
   m_ObjectHideFlags: 0
@@ -3047,7 +3044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 3
+  durability: 40
 --- !u!65 &1576951195
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3412,7 +3409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 2
+  durability: 40
 --- !u!65 &1810646706
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3662,9 +3659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bfe07681b8eec43a31197b2b2ebf3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
-  playerTurnDuration: 5
-  enemyAimDelay: 0.8
-  enemyAfterFireDelay: 0.8
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
