@@ -159,4 +159,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16915aa9f3739647a6d9908dfa52718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEncounter
-  encounterData: {fileID: 11400000, guid: b76d4f29b62aa0b43b4cc1e8e413f655, type: 2}
+  encounterData: {fileID: 11400000, guid: fe6c9ea5380263c4391e1bfc59774d9a, type: 2}
