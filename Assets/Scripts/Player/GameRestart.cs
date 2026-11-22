@@ -32,7 +32,7 @@ public class GameRestart : MonoBehaviour
             playerStats.Died -= Restart;
     }
 
-    private void Restart()
+    public void Restart()
     {
         if (isRestarting)
             return;
