@@ -186,7 +186,16 @@ public class InventoryView : MonoBehaviour
     {
         Keyboard keyboard = Keyboard.current;
 
-        if (keyboard == null || !keyboard.tabKey.wasPressedThisFrame)
+        if (keyboard == null)
+            return;
+
+        if (IsOpen && keyboard.escapeKey.wasPressedThisFrame)
+        {
+            Close();
+            return;
+        }
+
+        if (!keyboard.tabKey.wasPressedThisFrame)
             return;
 
         if (IsOpen)
