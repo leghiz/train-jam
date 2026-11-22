@@ -7,6 +7,11 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float maxStress = 100f;
 
+    public float MaxHealth
+    {
+        get { return maxHealth; }
+    }
+
     public float Health { get; private set; } = 100f;
     public float Stress { get; private set; } = 0f;
     public bool HasKey { get; private set; }

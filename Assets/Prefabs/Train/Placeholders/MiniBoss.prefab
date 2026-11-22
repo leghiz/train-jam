@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3643971846942852529}
   - component: {fileID: 1982805285049830987}
-  m_Layer: 0
+  - component: {fileID: 2135526403417304553}
+  m_Layer: 6
   m_Name: MiniBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +48,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Furniture
   isSurface: 0
   surfaceMargin: 0.05
+--- !u!114 &2135526403417304553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6771812407868079986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16915aa9f3739647a6d9908dfa52718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyEncounter
+  encounterData: {fileID: 11400000, guid: 9dfa65a61cfb4de49a24ba7025119222, type: 2}
 --- !u!1 &9182173701355147268
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +73,7 @@ GameObject:
   - component: {fileID: 2452118164480011534}
   - component: {fileID: 5318044838320990356}
   - component: {fileID: 3513904359804164910}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

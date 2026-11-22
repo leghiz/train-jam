@@ -33,31 +33,31 @@ MonoBehaviour:
   randomWagons:
   - wagon: {fileID: 6205244513707015595, guid: e74f120dd0eb29541a0354952853e5ee, type: 3}
     enemyCount: {x: 1, y: 2}
-    hasKeyHolder: 1
+    hasKeyHolder: 0
     lootCount: {x: 2, y: 3}
   - wagon: {fileID: 3090414215067492801, guid: d581f8f2b878aae4ab060db3617e9880, type: 3}
     enemyCount: {x: 1, y: 2}
-    hasKeyHolder: 1
+    hasKeyHolder: 0
     lootCount: {x: 2, y: 3}
   - wagon: {fileID: 7511382600871979173, guid: cf9fc887c5f9fb14bbbea861a7b0da19, type: 3}
     enemyCount: {x: 1, y: 2}
-    hasKeyHolder: 1
+    hasKeyHolder: 0
     lootCount: {x: 5, y: 8}
   - wagon: {fileID: 132562293489812163, guid: a3522bfd17b96954798c48b17d0dc33c, type: 3}
     enemyCount: {x: 1, y: 2}
-    hasKeyHolder: 1
+    hasKeyHolder: 0
     lootCount: {x: 5, y: 8}
   - wagon: {fileID: 8933645203109171921, guid: b5842258277308a4faeb3d61aaad85a9, type: 3}
     enemyCount: {x: 1, y: 2}
-    hasKeyHolder: 1
+    hasKeyHolder: 0
     lootCount: {x: 5, y: 8}
   - wagon: {fileID: 4212060093341821512, guid: 2a334ea723f88d64184bde62e418fec4, type: 3}
     enemyCount: {x: 1, y: 2}
-    hasKeyHolder: 1
+    hasKeyHolder: 0
     lootCount: {x: 1, y: 2}
   - wagon: {fileID: 3410881815279031604, guid: edc37858ee331d34d9c82620c5475da6, type: 3}
     enemyCount: {x: 1, y: 2}
-    hasKeyHolder: 1
+    hasKeyHolder: 0
     lootCount: {x: 1, y: 2}
   endWagon:
     wagon: {fileID: 2387002538534035511, guid: 3fa948029c1f08b4cb3eb610ede8f5d4, type: 3}
@@ -79,7 +79,10 @@ MonoBehaviour:
     maxPerWagon: 0
   enemies:
   - prefab: {fileID: 1985186993207405653, guid: 920cdb9648ef83c4aacede392646423d, type: 3}
-    weight: 1
+    weight: 0.65
+    minWagonIndex: 1
+  - prefab: {fileID: 7163920462628255995, guid: 988b8366f374db14b8bd262cf03f6154, type: 3}
+    weight: 0.35
     minWagonIndex: 1
   keyHolderPrefab: {fileID: 3594436533046180456, guid: 4f1f1f1e36f36864e8267238e789ff64, type: 3}
   minEnemyDistance: 5

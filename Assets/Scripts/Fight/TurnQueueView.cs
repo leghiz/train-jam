@@ -4,14 +4,10 @@ using UnityEngine.UI;
 public class TurnQueueView : MonoBehaviour
 {
     [SerializeField] private Image[] slots;
-    [SerializeField] private Text[] labels;
 
-    [SerializeField] private Color playerColor = new Color(0.18f, 0.55f, 0.1f);
-    [SerializeField] private Color enemyColor = new Color(0.9f, 0.05f, 0.05f);
-    [SerializeField] private float dimming = 0.45f;
-
-    [SerializeField] private string playerText = "ИГРОК";
-    [SerializeField] private string enemyText = "ВРАГ";
+    [SerializeField] private Color playerColor = new Color(0.3f, 0.8f, 0.32f);
+    [SerializeField] private Color enemyColor = new Color(0.85f, 0.2f, 0.18f);
+    [SerializeField] private float dimBrightness = 0.4f;
 
     private void Update()
     {
@@ -30,7 +26,7 @@ public class TurnQueueView : MonoBehaviour
 
             int queueIndex = i - 1;
             bool hasTurn = queueIndex < turnManager.Queue.Count;
-            slots[i].gameObject.SetActive(hasTurn);
+            slots[i].transform.parent.gameObject.SetActive(hasTurn);
 
             if (hasTurn)
                 ShowSlot(i, turnManager.Queue[queueIndex], true);
@@ -40,18 +36,13 @@ public class TurnQueueView : MonoBehaviour
     private void ShowSlot(int index, TurnManager.Turn turn, bool isDimmed)
     {
         Color color = enemyColor;
-        string text = enemyText;
 
         if (turn == TurnManager.Turn.Player)
-        {
             color = playerColor;
-            text = playerText;
-        }
 
         if (isDimmed)
-            color = Color.Lerp(color, Color.black, dimming);
+            color = new Color(color.r * dimBrightness, color.g * dimBrightness, color.b * dimBrightness, color.a);
 
         slots[index].color = color;
-        labels[index].text = text;
     }
 }

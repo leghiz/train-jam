@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerTurnActions : MonoBehaviour
 {
@@ -44,26 +43,6 @@ public class PlayerTurnActions : MonoBehaviour
     {
         if (explorationInput != null)
             explorationInput.enabled = wasExplorationInputEnabled;
-    }
-
-    private void Update()
-    {
-        Keyboard keyboard = Keyboard.current;
-
-        if (keyboard == null)
-            return;
-
-        if (keyboard.digit1Key.wasPressedThisFrame)
-            UseItem(0);
-
-        if (keyboard.digit2Key.wasPressedThisFrame)
-            UseItem(1);
-
-        if (keyboard.digit3Key.wasPressedThisFrame)
-            UseItem(2);
-
-        if (keyboard.digit4Key.wasPressedThisFrame)
-            UseItem(3);
     }
 
     public bool UseItem(int index)

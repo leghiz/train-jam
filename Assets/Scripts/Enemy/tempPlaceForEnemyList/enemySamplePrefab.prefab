@@ -432,6 +432,7 @@ GameObject:
   - component: {fileID: 949091920064518659}
   - component: {fileID: 4182986935063993282}
   - component: {fileID: 3440298250684563838}
+  - component: {fileID: 3360651916951125649}
   m_Layer: 0
   m_Name: enemySamplePrefab
   m_TagString: Untagged
@@ -566,6 +567,18 @@ MonoBehaviour:
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   spawnOffset: 0.5
   config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
+--- !u!114 &3360651916951125649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047159749849998778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40c90a5b2db7994daf5042777d1c6ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArmorRandomizer
 --- !u!1 &7570561103016363376
 GameObject:
   m_ObjectHideFlags: 0
