@@ -16,6 +16,7 @@ public class TurnManager : MonoBehaviour
     public float TimeLeft { get; private set; }
     public List<Turn> Queue { get; private set; } = new List<Turn>();
     public bool AttackChosen { get; private set; }
+    public int TurnNumber { get; private set; }
 
     private int consecutiveEnemyTurns = 0;
     private int consecutivePlayerTurns = 0;
@@ -46,6 +47,7 @@ public class TurnManager : MonoBehaviour
             Turn turn = Queue[0];
             Queue.RemoveAt(0);
             AddNextTurn();
+            TurnNumber++;
 
             if (turn == Turn.Player)
             {
