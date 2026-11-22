@@ -11816,6 +11816,7 @@ GameObject:
   - component: {fileID: 971510687}
   - component: {fileID: 971510686}
   - component: {fileID: 971510692}
+  - component: {fileID: 971510693}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -11971,6 +11972,18 @@ MonoBehaviour:
   playerMovement: {fileID: 971510688}
   playerRotation: {fileID: 971510691}
   animator: {fileID: 0}
+--- !u!114 &971510693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971510684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80fd9b4ea5aa4ca4fa833966b78e8f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameRestart
 --- !u!1 &973702757
 GameObject:
   m_ObjectHideFlags: 0
