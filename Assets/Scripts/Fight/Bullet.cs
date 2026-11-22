@@ -43,10 +43,10 @@ public class Bullet : MonoBehaviour
             enemy.TakeHit(type, damage, collision.gameObject);
         }
 
-        Player player = collision.gameObject.GetComponentInParent<Player>();
-        if (player != null)
+        PlayerStats playerStats = collision.gameObject.GetComponentInParent<PlayerStats>();
+        if (playerStats != null)
         {
-            player.TakeDamage(damage);
+            playerStats.TakeDamage(damage);
         }
     }
 
