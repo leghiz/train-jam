@@ -6,9 +6,13 @@ internal class WagonSpace
     private const int Attempts = 30;
     private const float PlayerSpawnClearance = 0.8f;
     private const float RaisedThreshold = 0.05f;
+    private const float SupportRayHeight = 1f;
+    private const float SupportTolerance = 0.1f;
+    private const float SupportEdgeMargin = 0.06f;
 
     private class Surface
     {
+        public Furniture furniture;
         public Rect area;
         public float top;
         public readonly List<Rect> taken = new List<Rect>();
@@ -25,6 +29,8 @@ internal class WagonSpace
 
     public WagonSpace(WagonLayout wagon, float spacing)
     {
+        Physics.SyncTransforms();
+
         _wagon = wagon.transform;
         _floor = wagon.GetFloorRect();
         _floorY = wagon.GetFloorHeight();
@@ -61,7 +67,7 @@ internal class WagonSpace
             var area = BoundsUtil.Expand(footprint, -furniture.surfaceMargin);
             if (area.width > 0f && area.height > 0f)
             {
-                _surfaces.Add(new Surface { area = area, top = local.max.y });
+                _surfaces.Add(new Surface { furniture = furniture, area = area, top = local.max.y });
             }
         }
 
@@ -111,6 +117,7 @@ internal class WagonSpace
             {
                 if (!TryRandomPivot(surface.area, shape, rng, out var pivot, out var rect)) break;
                 if (Overlaps(rect, surface.taken)) continue;
+                if (!IsSupported(surface, rect)) continue;
 
                 surface.taken.Add(rect);
                 obj.localPosition = new Vector3(pivot.x, surface.top - shape.min.y, pivot.y);
@@ -141,6 +148,58 @@ internal class WagonSpace
             Mathf.Lerp(zFrom, zTo, (float)rng.NextDouble()));
         rect = new Rect(pivot.x + shape.min.x, pivot.y + shape.min.z, shape.size.x, shape.size.z);
         return true;
+    }
+
+    private bool IsSupported(Surface surface, Rect rect)
+    {
+        Rect outer = BoundsUtil.Expand(rect, SupportEdgeMargin);
+        Vector2[] points =
+        {
+            outer.center,
+            new Vector2(outer.xMin, outer.yMin),
+            new Vector2(outer.xMax, outer.yMin),
+            new Vector2(outer.xMin, outer.yMax),
+            new Vector2(outer.xMax, outer.yMax)
+        };
+
+        foreach (Vector2 point in points)
+        {
+            if (!HitsSurfaceTop(surface, point))
+                return false;
+        }
+
+        return true;
+    }
+
+    private bool HitsSurfaceTop(Surface surface, Vector2 point)
+    {
+        Vector3 origin = _wagon.TransformPoint(new Vector3(point.x, surface.top + SupportRayHeight, point.y));
+        RaycastHit[] hits = Physics.RaycastAll(origin, -_wagon.up, SupportRayHeight + SupportTolerance, ~0, QueryTriggerInteraction.Ignore);
+
+        Collider highest = null;
+        float highestY = float.MinValue;
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (!hit.collider.transform.IsChildOf(_wagon))
+                continue;
+
+            float y = _wagon.InverseTransformPoint(hit.point).y;
+
+            if (y > highestY)
+            {
+                highestY = y;
+                highest = hit.collider;
+            }
+        }
+
+        if (highest == null)
+            return false;
+
+        if (highest.GetComponentInParent<Furniture>() != surface.furniture)
+            return false;
+
+        return Mathf.Abs(highestY - surface.top) <= SupportTolerance;
     }
 
     private bool Overlaps(Rect rect, List<Rect> taken)

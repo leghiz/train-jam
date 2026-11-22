@@ -300,7 +300,8 @@ public class TrainGenerator : MonoBehaviour
     private GameObject TryPlace(GameObject prefab, LootPlacement placement, int wagonIndex)
     {
         var space = _spaces[wagonIndex];
-        var obj = Create(prefab, _wagons[wagonIndex], Quaternion.identity);
+        Quaternion randomYaw = Quaternion.Euler(0f, (float)_rng.NextDouble() * 360f, 0f);
+        var obj = Create(prefab, _wagons[wagonIndex], randomYaw);
         var t = obj.transform;
 
         bool placed;
