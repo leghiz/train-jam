@@ -8,6 +8,21 @@ public class DoorInteraction : MonoBehaviour
     private TrainGenerator generator;
     private PlayerStats playerStats;
     private bool playerNearby;
+    private WagonLayout wagon;
+
+    public bool PlayerNearby => playerNearby;
+    public bool IsLocked => requiresKey && (playerStats == null || !playerStats.HasKey);
+
+    public bool HasEnemiesLeft
+    {
+        get
+        {
+            if (wagon == null)
+                wagon = GetComponentInParent<WagonLayout>();
+
+            return wagon != null && wagon.GetComponentsInChildren<EnemyEncounter>().Length > 0;
+        }
+    }
 
     private void Start()
     {
@@ -21,6 +36,9 @@ public class DoorInteraction : MonoBehaviour
 
         if (Keyboard.current.fKey.wasPressedThisFrame)
         {
+            if (HasEnemiesLeft)
+                return;
+
             if (requiresKey && !playerStats.HasKey)
             {
                 Debug.Log("Дверь заперта! Нужен ключ.");

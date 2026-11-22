@@ -8,7 +8,16 @@ public class EncounterData : ScriptableObject
 
     [Header("Loot")]
     [SerializeField] private ItemPickup[] loot;
+    [SerializeField] private LootChance[] randomLoot;
 
     public GameObject[] BattleEnemyPrefabs => battleEnemyPrefabs;
     public ItemPickup[] Loot => loot;
+    public LootChance[] RandomLoot => randomLoot;
+
+    [System.Serializable]
+    public class LootChance
+    {
+        public ItemPickup item;
+        [Range(0f, 1f)] public float chance;
+    }
 }
