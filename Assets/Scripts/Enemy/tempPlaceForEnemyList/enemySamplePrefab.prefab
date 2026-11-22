@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 2
+  durability: 40
 --- !u!1 &2188132380319728084
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 3
+  durability: 60
 --- !u!1 &4960333106257074025
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +531,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -550,9 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyArmor
   health: 100
-  headMultiplier: 1.2
-  bodyMultiplier: 1
-  legsMultiplier: 0.7
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!114 &3440298250684563838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   spawnOffset: 0.5
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!1 &7570561103016363376
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,4 +691,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 5
+  durability: 100

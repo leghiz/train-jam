@@ -41,7 +41,7 @@ public class BattleManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StartBattle(EnemyEncounter enemy)
+    public void StartBattle(EnemyEncounter enemy, bool enemyAttackedFirst = false)
     {
         if (isBattleStarted || enemy == null)
             return;
@@ -61,6 +61,13 @@ public class BattleManager : MonoBehaviour
         explorationScene = SceneManager.GetActiveScene();
 
         BattleContext.SetEncounter(enemy.EncounterData);
+        BattleContext.SetEnemy(enemy);
+        BattleContext.SetEnemyAttackedFirst(enemyAttackedFirst);
+
+        BattleContext.SetInventory(originalPlayerStats.GetComponent<InventorySystem>());
+        
+        if (playerTargeting != null)
+            playerTargeting.StopAiming();
         
         wasMovementEnabled =
             playerMovement != null && playerMovement.enabled;
@@ -74,9 +81,6 @@ public class BattleManager : MonoBehaviour
         wasExplorationCameraEnabled =
             explorationCamera != null && explorationCamera.enabled;
         
-        
-        if (playerTargeting != null)
-            playerTargeting.StopAiming();
         
         if (playerMovement != null)
             playerMovement.enabled = false;
@@ -194,6 +198,9 @@ public class BattleManager : MonoBehaviour
         BattleContext.Clear();
 
         isBattleStarted = false;
+
+        if (originalPlayerStats != null && originalPlayerStats.Health <= 0)
+            originalPlayerStats.TakeDamage(0);
     }
 
     private void RestoreExploration()

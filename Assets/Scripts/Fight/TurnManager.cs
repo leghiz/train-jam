@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TurnManager : MonoBehaviour
 {
@@ -8,19 +9,17 @@ public class TurnManager : MonoBehaviour
 
     public static TurnManager Instance { get; private set; }
 
-    [Header("Тайминги")]
-    public float playerTurnDuration = 5f;
-    public float enemyAimDelay = 0.8f;
-    public float enemyAfterFireDelay = 0.8f;
-
-    [Header("Случайность")]
-    public float playerTurnChance = 0.5f;
-    public int maxConsecutiveEnemyTurns = 3;
+    [Header("Конфиг")]
+    public BattleConfig config;
 
     public Turn CurrentTurn { get; private set; }
     public float TimeLeft { get; private set; }
+    public List<Turn> Queue { get; private set; } = new List<Turn>();
+    public bool AttackChosen { get; private set; }
 
     private int consecutiveEnemyTurns = 0;
+    private int consecutivePlayerTurns = 0;
+    private bool isPlayerTurnOver;
 
     void Awake()
     {
@@ -40,11 +39,15 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator TurnLoop()
     {
-        yield return StartCoroutine(PlayerTurn());
+        FillQueue();
 
         while (true)
         {
-            if (RollPlayerTurn())
+            Turn turn = Queue[0];
+            Queue.RemoveAt(0);
+            AddNextTurn();
+
+            if (turn == Turn.Player)
             {
                 Debug.Log("ходит игрок");
                 yield return StartCoroutine(PlayerTurn());
@@ -54,48 +57,92 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    private void FillQueue()
+    {
+        Queue.Clear();
+
+        if (BattleContext.EnemyAttackedFirst)
+            AddTurn(Turn.Enemy);
+        else
+            AddTurn(Turn.Player);
+
+        while (Queue.Count < config.turnQueueLength)
+            AddNextTurn();
+    }
+
+    private void AddNextTurn()
+    {
+        if (RollPlayerTurn())
+            AddTurn(Turn.Player);
+        else
+            AddTurn(Turn.Enemy);
+    }
+
+    private void AddTurn(Turn turn)
+    {
+        if (turn == Turn.Enemy)
+        {
+            consecutiveEnemyTurns++;
+            consecutivePlayerTurns = 0;
+        }
+        else
+        {
+            consecutivePlayerTurns++;
+            consecutiveEnemyTurns = 0;
+        }
+
+        Queue.Add(turn);
+    }
+
     private bool RollPlayerTurn()
     {
-        var enemies = FindObjectsOfType<EnemyShooter>();
-        int alive = 0;
-        foreach (var e in enemies) 
-            if (e != null) 
-                alive++;
+        if (consecutivePlayerTurns >= config.maxConsecutivePlayerTurns)
+            return false;
 
-        if (alive == 0) 
-            return true;
-
-        if (consecutiveEnemyTurns >= maxConsecutiveEnemyTurns)
+        if (consecutiveEnemyTurns >= config.maxConsecutiveEnemyTurns)
         {
             return true;
         }
 
-        return playerTurnChance > UnityEngine.Random.value;
+        return config.playerTurnChance > UnityEngine.Random.value;
     }
 
     IEnumerator PlayerTurn()
     {
-        consecutiveEnemyTurns = 0;
-
         CurrentTurn = Turn.Player;
-        TimeLeft = playerTurnDuration;
+        TimeLeft = config.playerTurnDuration;
+        AttackChosen = false;
+        isPlayerTurnOver = false;
 
-        while (TimeLeft > 0f)
+        while (!AttackChosen && !isPlayerTurnOver)
+            yield return null;
+
+        while (TimeLeft > 0f && !isPlayerTurnOver)
         {
             TimeLeft -= Time.deltaTime;
             yield return null;
         }
     }
 
+    public void ChooseAttack()
+    {
+        if (CurrentTurn == Turn.Player)
+            AttackChosen = true;
+    }
+
+    public void EndPlayerTurn()
+    {
+        if (CurrentTurn == Turn.Player)
+            isPlayerTurnOver = true;
+    }
+
     IEnumerator EnemyTurn()
     {
-        consecutiveEnemyTurns++;
-
         CurrentTurn = Turn.Enemy;
 
-        yield return new WaitForSeconds(enemyAimDelay);
+        yield return new WaitForSeconds(config.enemyAimDelay);
         ShootRandomEnemy();
-        yield return new WaitForSeconds(enemyAfterFireDelay);
+        yield return new WaitForSeconds(config.enemyAfterFireDelay);
     }
 
     private void ShootRandomEnemy()

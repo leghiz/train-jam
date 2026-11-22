@@ -72,17 +72,22 @@ public class InventorySystem : MonoBehaviour
 
     public bool Use(int index)
     {
+        return Use(index, playerStats);
+    }
+
+    public bool Use(int index, PlayerStats target)
+    {
         ItemData item = Get(index);
         if (item == null)
             return false;
 
         if (item.heal > 0f)
-            playerStats.Heal(item.heal);
+            target.Heal(item.heal);
 
         if (item.stressChange < 0f)
-            playerStats.ReduceStress(-item.stressChange);
+            target.ReduceStress(-item.stressChange);
         else if (item.stressChange > 0f)
-            playerStats.AddStress(item.stressChange);
+            target.AddStress(item.stressChange);
 
         if (item.consumeOnUse)
             Remove(index);

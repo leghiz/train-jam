@@ -3,14 +3,13 @@ using UnityEngine;
 public class Armor : MonoBehaviour
 {
     [Header("’п брони")]
-    public int hitsToDestroy = 1;
+    public int durability = 40;
 
-    private int currentHits = 0;
-
-    public void TakeHit()
+    public void TakeHit(int damage)
     {
-        currentHits++;
-        if (currentHits >= hitsToDestroy)
+        durability -= damage;
+
+        if (durability <= 0)
             Destroy(gameObject);
     }
 }

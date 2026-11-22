@@ -20,13 +20,6 @@ public class Bullet : MonoBehaviour
 
     private void HandleBlueHit(Collision collision)
     {
-        Armor armor = collision.gameObject.GetComponent<Armor>();
-        if (armor != null)
-        {
-            armor.TakeHit();
-            return;
-        }
-
         EnemyArmor enemy = collision.gameObject.GetComponentInParent<EnemyArmor>();
         if (enemy != null)
         {
@@ -43,10 +36,10 @@ public class Bullet : MonoBehaviour
             enemy.TakeHit(type, damage, collision.gameObject);
         }
 
-        Player player = collision.gameObject.GetComponentInParent<Player>();
-        if (player != null)
+        PlayerStats playerStats = collision.gameObject.GetComponentInParent<PlayerStats>();
+        if (playerStats != null)
         {
-            player.TakeDamage(damage);
+            playerStats.TakeDamage(damage);
         }
     }
 
