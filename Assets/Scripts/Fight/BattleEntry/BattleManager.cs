@@ -41,7 +41,7 @@ public class BattleManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StartBattle(EnemyEncounter enemy)
+    public void StartBattle(EnemyEncounter enemy, bool enemyAttackedFirst = false)
     {
         if (isBattleStarted || enemy == null)
             return;
@@ -62,6 +62,7 @@ public class BattleManager : MonoBehaviour
 
         BattleContext.SetEncounter(enemy.EncounterData);
         BattleContext.SetEnemy(enemy);
+        BattleContext.SetEnemyAttackedFirst(enemyAttackedFirst);
         
         if (playerTargeting != null)
             playerTargeting.StopAiming();

@@ -125,7 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 2
+  durability: 40
+  armorPiercingMultiplier: 1
+  normalMultiplier: 0.4
 --- !u!1 &2188132380319728084
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 3
+  durability: 60
+  armorPiercingMultiplier: 1
+  normalMultiplier: 0.4
 --- !u!1 &4960333106257074025
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +535,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -692,4 +696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  hitsToDestroy: 5
+  durability: 100
+  armorPiercingMultiplier: 1
+  normalMultiplier: 0.4

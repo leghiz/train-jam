@@ -12,6 +12,17 @@ public class EnemyArmor : MonoBehaviour
 
     public void TakeHit(string type, int damage, GameObject hitObject)
     {
+        Transform part = GetBodyPartRoot(hitObject);
+        Armor armor = null;
+        if (part != null)
+            armor = part.GetComponentInChildren<Armor>();
+
+        if (armor != null)
+        {
+            armor.TakeHit(type, damage);
+            return;
+        }
+
         if (type == "blue")
         {
             health -= (int)(0.1f * damage);
@@ -20,10 +31,6 @@ public class EnemyArmor : MonoBehaviour
 
         else
         {
-            Transform part = GetBodyPartRoot(hitObject);
-            if (part.GetComponentsInChildren<Armor>().Length > 0)
-                return;
-
             health -= (int)(GetMultiplier(hitObject) * damage);
             Debug.Log($"У {gameObject} осталось {health} HP");
 

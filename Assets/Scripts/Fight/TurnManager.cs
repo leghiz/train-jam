@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TurnManager : MonoBehaviour
 {
@@ -16,11 +17,17 @@ public class TurnManager : MonoBehaviour
     [Header("Случайность")]
     public float playerTurnChance = 0.5f;
     public int maxConsecutiveEnemyTurns = 3;
+    public int maxConsecutivePlayerTurns = 1;
+
+    [Header("Очередь")]
+    public int queueLength = 5;
 
     public Turn CurrentTurn { get; private set; }
     public float TimeLeft { get; private set; }
+    public List<Turn> Queue { get; private set; } = new List<Turn>();
 
     private int consecutiveEnemyTurns = 0;
+    private int consecutivePlayerTurns = 0;
 
     void Awake()
     {
@@ -40,11 +47,15 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator TurnLoop()
     {
-        yield return StartCoroutine(PlayerTurn());
+        FillQueue();
 
         while (true)
         {
-            if (RollPlayerTurn())
+            Turn turn = Queue[0];
+            Queue.RemoveAt(0);
+            AddNextTurn();
+
+            if (turn == Turn.Player)
             {
                 Debug.Log("ходит игрок");
                 yield return StartCoroutine(PlayerTurn());
@@ -54,16 +65,47 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    private void FillQueue()
+    {
+        Queue.Clear();
+
+        if (BattleContext.EnemyAttackedFirst)
+            AddTurn(Turn.Enemy);
+        else
+            AddTurn(Turn.Player);
+
+        while (Queue.Count < queueLength)
+            AddNextTurn();
+    }
+
+    private void AddNextTurn()
+    {
+        if (RollPlayerTurn())
+            AddTurn(Turn.Player);
+        else
+            AddTurn(Turn.Enemy);
+    }
+
+    private void AddTurn(Turn turn)
+    {
+        if (turn == Turn.Enemy)
+        {
+            consecutiveEnemyTurns++;
+            consecutivePlayerTurns = 0;
+        }
+        else
+        {
+            consecutivePlayerTurns++;
+            consecutiveEnemyTurns = 0;
+        }
+
+        Queue.Add(turn);
+    }
+
     private bool RollPlayerTurn()
     {
-        var enemies = FindObjectsOfType<EnemyShooter>();
-        int alive = 0;
-        foreach (var e in enemies) 
-            if (e != null) 
-                alive++;
-
-        if (alive == 0) 
-            return true;
+        if (consecutivePlayerTurns >= maxConsecutivePlayerTurns)
+            return false;
 
         if (consecutiveEnemyTurns >= maxConsecutiveEnemyTurns)
         {
@@ -75,8 +117,6 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator PlayerTurn()
     {
-        consecutiveEnemyTurns = 0;
-
         CurrentTurn = Turn.Player;
         TimeLeft = playerTurnDuration;
 
@@ -89,8 +129,6 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        consecutiveEnemyTurns++;
-
         CurrentTurn = Turn.Enemy;
 
         yield return new WaitForSeconds(enemyAimDelay);
