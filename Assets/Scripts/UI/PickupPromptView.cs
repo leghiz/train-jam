@@ -15,6 +15,7 @@ public class PickupPromptView : MonoBehaviour
     [SerializeField] private string enemyText = "РЯДОМ ВРАГ";
     [SerializeField] private string lockedText = "НУЖЕН КЛЮЧ";
     [SerializeField] private NoteView noteView;
+    [SerializeField] private EndingView endingView;
     [SerializeField] private float offset = 5f;
     [SerializeField] private float arrowGap = 4f;
 
@@ -34,6 +35,9 @@ public class PickupPromptView : MonoBehaviour
 
         if (noteView == null)
             noteView = FindAnyObjectByType<NoteView>();
+
+        if (endingView == null)
+            endingView = FindAnyObjectByType<EndingView>();
     }
 
     private void LateUpdate()
@@ -46,6 +50,7 @@ public class PickupPromptView : MonoBehaviour
             ItemPickup pickup = interaction.FindNearestPickup();
             NoteInteraction note = FindNote();
             DoorInteraction door = FindDoor();
+            StoveInteraction stove = FindStove();
 
             if (pickup != null)
             {
@@ -65,6 +70,13 @@ public class PickupPromptView : MonoBehaviour
             {
                 target = door.gameObject;
                 blockedText = GetDoorBlockedText(door);
+            }
+            else if (stove != null)
+            {
+                target = stove.gameObject;
+
+                if (stove.HasEnemiesLeft)
+                    blockedText = enemyText;
             }
         }
 
@@ -105,6 +117,9 @@ public class PickupPromptView : MonoBehaviour
         if (noteView != null && noteView.IsOpen)
             return false;
 
+        if (endingView != null && endingView.IsShown)
+            return false;
+
         return interaction != null && interaction.isActiveAndEnabled;
     }
 
@@ -116,6 +131,19 @@ public class PickupPromptView : MonoBehaviour
         {
             if (note.PlayerNearby)
                 return note;
+        }
+
+        return null;
+    }
+
+    private StoveInteraction FindStove()
+    {
+        StoveInteraction[] stoves = FindObjectsByType<StoveInteraction>();
+
+        foreach (StoveInteraction stove in stoves)
+        {
+            if (stove.PlayerNearby)
+                return stove;
         }
 
         return null;
