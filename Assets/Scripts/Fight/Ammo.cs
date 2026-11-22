@@ -13,6 +13,8 @@ public class Ammo : MonoBehaviour
     public bool IsReloading { get; private set; }
     public float ReloadTimeLeft { get; private set; }
 
+    public event System.Action<string> Fired;
+
     private float reloadTime;
 
     public bool CanShoot
@@ -60,6 +62,9 @@ public class Ammo : MonoBehaviour
         RoundsLeft--;
         if (RoundsLeft <= 0)
             StartReload();
+
+        if (Fired != null)
+            Fired(type);
 
         return type;
     }

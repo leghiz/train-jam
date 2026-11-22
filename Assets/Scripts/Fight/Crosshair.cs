@@ -4,16 +4,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(RectTransform))]
 public class Crosshair : MonoBehaviour
 {
+    [SerializeField] private GameObject visual;
+
     private RectTransform rectTransform;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-    }
-
-    private void OnEnable()
-    {
-        Cursor.visible = false;
     }
 
     private void OnDisable()
@@ -23,6 +20,12 @@ public class Crosshair : MonoBehaviour
 
     private void Update()
     {
+        TurnManager turnManager = TurnManager.Instance;
+        bool isPlayerTurn = turnManager != null && turnManager.CurrentTurn == TurnManager.Turn.Player;
+
+        visual.SetActive(isPlayerTurn);
+        Cursor.visible = false;
+
         Mouse mouse = Mouse.current;
 
         if (mouse == null)

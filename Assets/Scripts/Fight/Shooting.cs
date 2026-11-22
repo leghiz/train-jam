@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Camera))]
@@ -29,12 +30,10 @@ public class Shooting : MonoBehaviour
             return;
 
         if (!TurnManager.Instance.AttackChosen)
-        {
-            if (Mouse.current.leftButton.wasPressedThisFrame)
-                TurnManager.Instance.ChooseAttack();
-
             return;
-        }
+
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
 
         if (ammo != null && !ammo.CanShoot)
             return;
