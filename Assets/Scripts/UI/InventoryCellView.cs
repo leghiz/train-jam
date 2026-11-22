@@ -94,5 +94,8 @@ public class InventoryCellView : MonoBehaviour, IPointerEnterHandler, IPointerCl
     {
         if (eventData.button == PointerEventData.InputButton.Left)
             owner.UseSlot(index);
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+            owner.DropSlot(index);
     }
 }
