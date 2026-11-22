@@ -49,11 +49,19 @@ public class HeroFogView : MonoBehaviour
         Shader.SetGlobalVector(AimId, new Vector4(forward.x, forward.z, Mathf.Lerp(1f, aimStretch, Mathf.SmoothStep(0f, 1f, aimed)), 0f));
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetOnPlay()
+    {
+        ResetFog();
+    }
+
     private void OnDisable()
     {
-        if (gameObject.scene != SceneManager.GetActiveScene())
-            return;
+        ResetFog();
+    }
 
+    private static void ResetFog()
+    {
         Shader.SetGlobalVector(RangeId, Vector4.zero);
         Shader.SetGlobalVector(AimId, Vector4.zero);
     }
