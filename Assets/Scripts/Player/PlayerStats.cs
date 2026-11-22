@@ -63,7 +63,6 @@ public class PlayerStats : MonoBehaviour
         Health = Mathf.Clamp(source.Health, 0, maxHealth);
         Stress = Mathf.Clamp(source.Stress, 0, maxStress);
     }
-}
 
     public void ResetStats()
     {
