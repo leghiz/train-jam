@@ -29,8 +29,8 @@ Material:
     - _Brightness: 1
     - _LineSharpness: 0.758
     - _LineStrength: 1
-    - _Mask: 0
-    - _PixelHeight: 300
+    - _Mask: 1
+    - _PixelHeight: 720
     - _RollSpeed: -2
     - _RollStrength: 0
     - _RollWidth: 0.01
