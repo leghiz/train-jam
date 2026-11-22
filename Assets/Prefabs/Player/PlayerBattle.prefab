@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5307193242604828937}
   - component: {fileID: -5454502296613414613}
   - component: {fileID: 8023342657299518671}
+  - component: {fileID: 7891098654284240117}
   m_Layer: 0
   m_Name: PlayerBattle
   m_TagString: Player
@@ -86,6 +87,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAimFollow
   turnSpeed: 10
   aimDistance: 30
+--- !u!114 &7891098654284240117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023344408116677987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20621d084ee33674e91e6efb180910fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeroFogView
+  color: {r: 0.101960786, g: 0.101960786, b: 0.10980392, a: 1}
+  clearRadius: 2.5
+  fullRadius: 9
+  density: 0.85
+  aimStretch: 2
+  aimSeconds: 0.35
 --- !u!1001 &1013210886051481885
 PrefabInstance:
   m_ObjectHideFlags: 0
