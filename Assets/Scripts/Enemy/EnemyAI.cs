@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -30,18 +29,23 @@ public class EnemyAI : MonoBehaviour
     public float rotationSpeed = 8f;
 
     private EnemyMovement movement;
+    private Animator animator;
+    private EnemyEncounter encounter;
 
     private float memoryTimer;
     private float fireTimer;
 
     private Vector3 lastKnownPlayerPos;
 
-    private bool battleStarted;
+    private void Awake()
+    {
+        movement = GetComponent<EnemyMovement>();
+        animator = GetComponentInChildren<Animator>();
+        encounter = GetComponent<EnemyEncounter>();
+    }
 
     private void Start()
     {
-        movement = GetComponent<EnemyMovement>();
-
         if (player == null)
         {
             GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -53,14 +57,26 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if (player == null || battleStarted)
+        if (player == null)
             return;
+        
+        if (BattleManager.Instance != null && BattleManager.Instance.IsBattleStarted)
+        {
+            movement.StopMovement();
+
+            if (animator != null)
+            {
+                animator.SetBool("IsChasing", false);
+                animator.SetBool("IsShooting", false);
+            }
+
+            return;
+        }
 
         fireTimer -= Time.deltaTime;
 
         bool canSeePlayer = CheckForPlayer();
 
-        // Если игрок виден, обновляем его последнюю известную позицию
         if (canSeePlayer)
         {
             memoryTimer = memoryDuration;
@@ -71,7 +87,6 @@ public class EnemyAI : MonoBehaviour
             memoryTimer -= Time.deltaTime;
         }
 
-        // Выбираем состояние врага
         if (canSeePlayer)
         {
             float distance = Vector3.Distance(transform.position, player.position);
@@ -93,7 +108,12 @@ public class EnemyAI : MonoBehaviour
             currentState = State.Patrol;
         }
 
-        // Выполняем поведение текущего состояния
+        if (animator != null)
+        {
+            animator.SetBool("IsChasing", currentState == State.Chase);
+            animator.SetBool("IsShooting", currentState == State.Attack);
+        }
+
         switch (currentState)
         {
             case State.Patrol:
@@ -113,39 +133,27 @@ public class EnemyAI : MonoBehaviour
     private bool CheckForPlayer()
     {
         Vector3 eyePosition = transform.position + Vector3.up;
-
         Vector3 playerPosition = player.position + Vector3.up;
         Vector3 directionToPlayer = playerPosition - eyePosition;
 
         float distance = directionToPlayer.magnitude;
 
-        // Проверка дистанции
         if (distance > viewRadius)
             return false;
 
-        // Проверка угла обзора
         float angle = Vector3.Angle(transform.forward, directionToPlayer);
 
         if (angle > viewAngle / 2f)
             return false;
 
-        // Проверка препятствий
-        if (Physics.Raycast(
-            eyePosition,
-            directionToPlayer.normalized,
-            distance,
-            environmentLayer))
-        {
+        if (Physics.Raycast(eyePosition, directionToPlayer.normalized, distance, environmentLayer))
             return false;
-        }
 
         return true;
     }
 
     private void HandleChase()
     {
-        // Пока игрок виден, идём непосредственно к нему.
-        // Если потеряли видимость, идём к последней известной позиции.
         Vector3 targetPosition = memoryTimer > 0f
             ? lastKnownPlayerPos
             : player.position;
@@ -155,10 +163,8 @@ public class EnemyAI : MonoBehaviour
 
     private void HandleAttack()
     {
-        // Останавливаем движение
         movement.StopMovement();
 
-        // Поворачиваемся к игроку
         Vector3 direction = player.position - transform.position;
         direction.y = 0f;
 
@@ -173,8 +179,6 @@ public class EnemyAI : MonoBehaviour
             );
         }
 
-        // Стреляем с интервалом
-        
         if (fireTimer <= 0f)
         {
             Shoot();
@@ -191,20 +195,11 @@ public class EnemyAI : MonoBehaviour
         Vector3 targetPosition = player.position + Vector3.up;
         Vector3 direction = (targetPosition - origin).normalized;
 
-        // Проверяем, куда реально попал выстрел
-        if (Physics.Raycast(
-            origin,
-            direction,
-            out RaycastHit hit,
-            attackRange,
-            ~0,
-            QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, attackRange, ~0, QueryTriggerInteraction.Ignore))
         {
-            // Проверяем, что первым попаданием был игрок
             if (hit.transform.root == player.root)
             {
                 Debug.Log("Враг попал в игрока! Запуск боя.");
-
                 StartBattle();
             }
             else
@@ -216,39 +211,37 @@ public class EnemyAI : MonoBehaviour
 
     private void StartBattle()
     {
-        battleStarted = true;
-
         movement.StopMovement();
 
-        // TODO:
-        // Здесь позже добавим вызов BattleManager
-        // после того, как ты скинешь его код.
+        if (animator != null)
+        {
+            animator.SetBool("IsChasing", false);
+            animator.SetBool("IsShooting", false);
+        }
+
+        if (BattleManager.Instance != null && encounter != null)
+        {
+            BattleManager.Instance.StartBattle(encounter, true);
+        }
+        else
+        {
+            Debug.LogWarning("EnemyAI: BattleManager.Instance или EnemyEncounter не найден!", gameObject);
+        }
     }
 
     private void OnDrawGizmosSelected()
     {
-        // Радиус зрения
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewRadius);
 
-        // Дистанция атаки
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        // Конус обзора
-        Vector3 leftBoundary =
-            Quaternion.Euler(0, -viewAngle / 2f, 0)
-            * transform.forward * viewRadius;
-
-        Vector3 rightBoundary =
-            Quaternion.Euler(0, viewAngle / 2f, 0)
-            * transform.forward * viewRadius;
+        Vector3 leftBoundary = Quaternion.Euler(0, -viewAngle / 2f, 0) * transform.forward * viewRadius;
+        Vector3 rightBoundary = Quaternion.Euler(0, viewAngle / 2f, 0) * transform.forward * viewRadius;
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position,
-            transform.position + leftBoundary);
-
-        Gizmos.DrawLine(transform.position,
-            transform.position + rightBoundary);
+        Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
+        Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
     }
 }

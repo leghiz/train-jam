@@ -28,9 +28,12 @@ public class EnemyMovement : MonoBehaviour
     private bool isWaiting;
     private bool isPatrolling;
     private bool hasTarget;
+    
+    private Animator animator;
 
     private void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
 
         if (agent == null)
@@ -73,6 +76,12 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        if (animator != null && agent != null)
+        {
+            bool isMoving = !agent.isStopped && agent.velocity.magnitude > 0.1f;
+            animator.SetBool("IsMoving", isMoving);
+        }
+        
         if (!isPatrolling)
             return;
 

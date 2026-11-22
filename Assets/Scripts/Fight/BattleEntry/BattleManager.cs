@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
 
     private Scene explorationScene;
     private bool isBattleStarted;
+    public bool IsBattleStarted => isBattleStarted;
 
     private bool wasMovementEnabled;
     private bool wasRotationEnabled;

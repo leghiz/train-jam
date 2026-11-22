@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9188432928723644271}
   - component: {fileID: 6769497566893599}
   - component: {fileID: 1788629893938168139}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallWest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,6 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7835102847343765191}
   - component: {fileID: 132562293489812163}
+  - component: {fileID: 4191719165270326644}
   m_Layer: 0
   m_Name: WagonCargo2
   m_TagString: Untagged
@@ -233,6 +234,38 @@ MonoBehaviour:
   playerSpawn: {fileID: 3698284111382397287}
   floorWidth: 9.6
   doorClearance: 1.2
+--- !u!114 &4191719165270326644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794279647583300896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 5d9dc864a76632b4db1496b107b4bc75, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &3921137601237052835
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +278,7 @@ GameObject:
   - component: {fileID: 3564313249085443067}
   - component: {fileID: 3040049592914684173}
   - component: {fileID: 8309235057183880128}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallEast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +533,7 @@ GameObject:
   - component: {fileID: 2040812566421959773}
   - component: {fileID: 1573989384305391747}
   - component: {fileID: 8970837410016578518}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallNorth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +676,7 @@ GameObject:
   - component: {fileID: 848073638395374328}
   - component: {fileID: 7380484782310315978}
   - component: {fileID: 8904465724430457798}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallSouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyArmor
   health: 100
-  config: {fileID: 0}
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!114 &-7111943451812022399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec67cd6c05c8dde4e9cc3ee0f714e61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   spawnOffset: 0.5
-  config: {fileID: 0}
+  config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!1001 &3728344899398802662
 PrefabInstance:
   m_ObjectHideFlags: 0
