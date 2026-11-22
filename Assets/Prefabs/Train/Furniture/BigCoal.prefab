@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 56db3d4bce184c14298774ff460e56bd, type: 2}
     - target: {fileID: 919132149155446097, guid: 99eefa8aa71ed504a9e9b81e0834d949, type: 3}
       propertyPath: m_Name
-      value: Coal
+      value: BigCoal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -95,7 +95,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5416314105798126571}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c92fb2d48e8fc4c49953773c8dde9181, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 495b95a73abad7440be834dc7823d0fa, type: 2}
     - target: {fileID: 919132149155446097, guid: 8ac7eb332f487b245a9a445981be110c, type: 3}
       propertyPath: m_Name
-      value: Chair 1
+      value: Chair
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -95,7 +95,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248832656056848109}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c92fb2d48e8fc4c49953773c8dde9181, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
