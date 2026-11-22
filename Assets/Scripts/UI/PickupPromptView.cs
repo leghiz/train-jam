@@ -8,13 +8,15 @@ public class PickupPromptView : MonoBehaviour
     [SerializeField] private InventoryView inventoryView;
     [SerializeField] private RectTransform prompt;
     [SerializeField] private GameObject keyPlate;
+    [SerializeField] private GameObject wordPlate;
     [SerializeField] private TMP_Text wordLabel;
-    [SerializeField] private string takeText = "ВЗЯТЬ";
+    [SerializeField] private RectTransform arrow;
     [SerializeField] private string fullText = "НЕТ МЕСТА";
-    [SerializeField] private string openText = "ОТКРЫТЬ";
     [SerializeField] private string enemyText = "РЯДОМ ВРАГ";
     [SerializeField] private string lockedText = "НУЖЕН КЛЮЧ";
+    [SerializeField] private NoteView noteView;
     [SerializeField] private float offset = 5f;
+    [SerializeField] private float arrowGap = 4f;
 
     private RectTransform area;
 
@@ -22,51 +24,74 @@ public class PickupPromptView : MonoBehaviour
     {
         area = transform as RectTransform;
         prompt.gameObject.SetActive(false);
+        arrow.gameObject.SetActive(false);
 
         if (interaction == null)
             interaction = FindAnyObjectByType<PlayerInteraction>();
 
         if (inventory == null && interaction != null)
             inventory = interaction.GetComponent<InventorySystem>();
+
+        if (noteView == null)
+            noteView = FindAnyObjectByType<NoteView>();
     }
 
     private void LateUpdate()
     {
         GameObject target = null;
-        bool showKey = false;
-        string text = "";
+        string blockedText = "";
 
         if (CanShow())
         {
             ItemPickup pickup = interaction.FindNearestPickup();
+            NoteInteraction note = FindNote();
             DoorInteraction door = FindDoor();
 
             if (pickup != null)
             {
                 target = pickup.gameObject;
-                showKey = HasRoom(pickup.Item);
-                text = GetPickupText(showKey);
+
+                if (!HasRoom(pickup.Item))
+                    blockedText = fullText;
+            }
+            else if (note != null)
+            {
+                target = note.Visual;
+
+                if (target == null)
+                    target = note.gameObject;
             }
             else if (door != null)
             {
                 target = door.gameObject;
-                showKey = !door.HasEnemiesLeft && !door.IsLocked;
-                text = GetDoorText(door);
+                blockedText = GetDoorBlockedText(door);
             }
         }
 
         Camera cam = Camera.main;
         Rect screenRect = new Rect();
         bool isVisible = target != null && cam != null && TryGetScreenRect(cam, target, out screenRect);
+        bool canInteract = blockedText == "";
 
         prompt.gameObject.SetActive(isVisible);
+        arrow.gameObject.SetActive(isVisible && canInteract);
 
         if (!isVisible)
             return;
 
-        keyPlate.SetActive(showKey);
-        wordLabel.text = text;
-        prompt.anchoredPosition = ToLocal(new Vector2(screenRect.center.x, screenRect.yMax)) + new Vector2(0f, offset);
+        keyPlate.SetActive(canInteract);
+        wordPlate.SetActive(!canInteract);
+        wordLabel.text = blockedText;
+
+        Vector2 top = ToLocal(new Vector2(screenRect.center.x, screenRect.yMax)) + new Vector2(0f, offset);
+
+        if (canInteract)
+        {
+            arrow.anchoredPosition = top;
+            top += new Vector2(0f, arrow.rect.height + arrowGap);
+        }
+
+        prompt.anchoredPosition = top;
     }
 
     private bool CanShow()
@@ -77,7 +102,23 @@ public class PickupPromptView : MonoBehaviour
         if (inventoryView != null && inventoryView.IsOpen)
             return false;
 
+        if (noteView != null && noteView.IsOpen)
+            return false;
+
         return interaction != null && interaction.isActiveAndEnabled;
+    }
+
+    private NoteInteraction FindNote()
+    {
+        NoteInteraction[] notes = FindObjectsByType<NoteInteraction>();
+
+        foreach (NoteInteraction note in notes)
+        {
+            if (note.PlayerNearby)
+                return note;
+        }
+
+        return null;
     }
 
     private DoorInteraction FindDoor()
@@ -93,15 +134,7 @@ public class PickupPromptView : MonoBehaviour
         return null;
     }
 
-    private string GetPickupText(bool hasRoom)
-    {
-        if (hasRoom)
-            return takeText;
-
-        return fullText;
-    }
-
-    private string GetDoorText(DoorInteraction door)
+    private string GetDoorBlockedText(DoorInteraction door)
     {
         if (door.HasEnemiesLeft)
             return enemyText;
@@ -109,7 +142,7 @@ public class PickupPromptView : MonoBehaviour
         if (door.IsLocked)
             return lockedText;
 
-        return openText;
+        return "";
     }
 
     private bool HasRoom(PickupData item)
