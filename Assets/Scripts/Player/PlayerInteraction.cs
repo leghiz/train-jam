@@ -19,7 +19,7 @@ public class PlayerInteraction : MonoBehaviour
             PickUp();
     }
 
-    private void PickUp()
+    public ItemPickup FindNearestPickup()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, pickupRadius, ~0, QueryTriggerInteraction.Collide);
 
@@ -39,6 +39,13 @@ public class PlayerInteraction : MonoBehaviour
                 nearest = pickup;
             }
         }
+
+        return nearest;
+    }
+
+    private void PickUp()
+    {
+        ItemPickup nearest = FindNearestPickup();
 
         if (nearest == null)
         {
