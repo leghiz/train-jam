@@ -35,6 +35,12 @@ public static class BattleContext
             Weapon = inventory.Weapon;
     }
 
+    [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetOnPlay()
+    {
+        Clear();
+    }
+
     public static void Clear()
     {
         CurrentEncounter = null;
