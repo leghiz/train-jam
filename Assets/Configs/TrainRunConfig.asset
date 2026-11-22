@@ -69,11 +69,11 @@ MonoBehaviour:
   spacing: 0.3
   surfaceLootChance: 0.6
   loot:
-  - prefab: {fileID: 7628743352661900124, guid: 74fba259c06577341984f54377298634, type: 3}
+  - prefab: {fileID: 926699169798332876, guid: bdaf50c4e1cee26408209bacd9a921b9, type: 3}
     weight: 1
     placement: 0
     maxPerWagon: 0
-  - prefab: {fileID: 212732036681041631, guid: 91137b4498d1a514f916e9b4af8fdb12, type: 3}
+  - prefab: {fileID: 5343339213131897153, guid: 8a5bd16715759ee4196c2104ba65426c, type: 3}
     weight: 1
     placement: 0
     maxPerWagon: 0
