@@ -4,8 +4,11 @@ using UnityEngine.InputSystem;
 public class StoveInteraction : MonoBehaviour
 {
     [SerializeField] private EndingView endingView;
+    [SerializeField] private TrainSway trainSway;
+    [SerializeField] private bool showEndingAfterStop = true;
 
     private bool playerNearby;
+    private bool interactionTriggered;
     private WagonLayout wagon;
     private InventoryView inventoryView;
 
@@ -27,12 +30,24 @@ public class StoveInteraction : MonoBehaviour
         if (endingView == null)
             endingView = FindAnyObjectByType<EndingView>();
 
+        if (trainSway == null)
+            trainSway = FindAnyObjectByType<TrainSway>();
+
         inventoryView = FindAnyObjectByType<InventoryView>();
+
+        if (trainSway != null && showEndingAfterStop)
+            trainSway.OnTrainStopped += HandleTrainStopped;
+    }
+
+    private void OnDestroy()
+    {
+        if (trainSway != null)
+            trainSway.OnTrainStopped -= HandleTrainStopped;
     }
 
     private void Update()
     {
-        if (!playerNearby || endingView == null || endingView.IsShown || Keyboard.current == null)
+        if (interactionTriggered || !playerNearby || endingView == null || endingView.IsShown || Keyboard.current == null)
             return;
 
         if (inventoryView != null && inventoryView.IsOpen)
@@ -44,7 +59,25 @@ public class StoveInteraction : MonoBehaviour
         if (HasEnemiesLeft)
             return;
 
-        endingView.Show();
+        interactionTriggered = true;
+
+        if (trainSway != null)
+        {
+            trainSway.StopTrain();
+            
+            if (!showEndingAfterStop)
+                endingView.Show();
+        }
+        else
+        {
+            endingView.Show();
+        }
+    }
+
+    private void HandleTrainStopped()
+    {
+        if (endingView != null && !endingView.IsShown)
+            endingView.Show();
     }
 
     private void OnTriggerEnter(Collider other)
