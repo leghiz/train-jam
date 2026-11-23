@@ -53,4 +53,12 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = movement * speed;
     }
+
+    private void OnDisable()
+    {
+        input = Vector2.zero;
+
+        if (animator != null)
+            animator.SetBool("IsRunning", false);
+    }
 }
