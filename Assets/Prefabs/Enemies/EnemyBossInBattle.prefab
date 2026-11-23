@@ -62,7 +62,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5748571347640505723}
@@ -120,6 +120,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   spawnOffset: 0.5
   config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
+  animator: {fileID: 1812465729717669633}
 --- !u!114 &1847842761397835774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +225,11 @@ PrefabInstance:
       addedObject: {fileID: 8645990683592425507}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aa676783b9516c4a92f6545936fe9f6, type: 3}
+--- !u!95 &1812465729717669633 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 6aa676783b9516c4a92f6545936fe9f6, type: 3}
+  m_PrefabInstance: {fileID: 5210029609921589904}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5748571347640505723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6aa676783b9516c4a92f6545936fe9f6, type: 3}

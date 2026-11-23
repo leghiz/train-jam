@@ -9,7 +9,7 @@ public class TurnManager : MonoBehaviour
 
     public static TurnManager Instance { get; private set; }
 
-    [Header("Конфиг")]
+    [Header("пїЅпїЅпїЅпїЅпїЅпїЅ")]
     public BattleConfig config;
 
     public Turn CurrentTurn { get; private set; }
@@ -17,6 +17,8 @@ public class TurnManager : MonoBehaviour
     public List<Turn> Queue { get; private set; } = new List<Turn>();
     public bool AttackChosen { get; private set; }
     public int TurnNumber { get; private set; }
+    
+    public event Action<Turn> OnTurnChanged;
 
     private int consecutiveEnemyTurns = 0;
     private int consecutivePlayerTurns = 0;
@@ -51,7 +53,7 @@ public class TurnManager : MonoBehaviour
 
             if (turn == Turn.Player)
             {
-                Debug.Log("ходит игрок");
+                Debug.Log("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
                 yield return StartCoroutine(PlayerTurn());
             }
             else
@@ -112,6 +114,7 @@ public class TurnManager : MonoBehaviour
     IEnumerator PlayerTurn()
     {
         CurrentTurn = Turn.Player;
+        OnTurnChanged?.Invoke(Turn.Player);
         TimeLeft = config.playerTurnDuration;
         AttackChosen = false;
         isPlayerTurnOver = false;
@@ -141,6 +144,7 @@ public class TurnManager : MonoBehaviour
     IEnumerator EnemyTurn()
     {
         CurrentTurn = Turn.Enemy;
+        OnTurnChanged?.Invoke(Turn.Enemy);
 
         yield return new WaitForSeconds(config.enemyAimDelay);
         ShootRandomEnemy();
@@ -155,7 +159,7 @@ public class TurnManager : MonoBehaviour
         if (alive.Length == 0) return;
 
         var enemy = alive[UnityEngine.Random.Range(0, alive.Length)];
-        Debug.Log($"ходит {enemy.gameObject.name}");
+        Debug.Log($"пїЅпїЅпїЅпїЅпїЅ {enemy.gameObject.name}");
         enemy.Shoot();
 
     }
