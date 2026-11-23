@@ -8,14 +8,23 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private AudioSource pickupSound;
 
     private InventorySystem inventory;
+    private InventoryView inventoryView;
 
     private void Awake()
     {
         inventory = GetComponent<InventorySystem>();
     }
 
+    private void Start()
+    {
+        inventoryView = FindAnyObjectByType<InventoryView>();
+    }
+
     private void Update()
     {
+        if (inventoryView != null && inventoryView.IsOpen)
+            return;
+
         if (Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
             PickUp();
     }

@@ -230,7 +230,17 @@ public class PickupPromptView : MonoBehaviour
     private Vector2 ToLocal(Vector2 screenPoint)
     {
         Vector2 local;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(area, screenPoint, null, out local);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(area, screenPoint, GetCanvasCamera(), out local);
         return local;
+    }
+
+    private Camera GetCanvasCamera()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>();
+
+        if (canvas == null || canvas.rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay)
+            return null;
+
+        return canvas.rootCanvas.worldCamera;
     }
 }

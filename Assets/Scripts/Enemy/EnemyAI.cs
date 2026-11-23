@@ -32,6 +32,7 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
     private EnemyEncounter encounter;
     private NoteView noteView;
+    private InventoryView inventoryView;
 
     private float memoryTimer;
     private float fireTimer;
@@ -56,6 +57,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         noteView = FindAnyObjectByType<NoteView>();
+        inventoryView = FindAnyObjectByType<InventoryView>();
     }
 
     private void Update()
@@ -82,7 +84,8 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        fireTimer -= Time.deltaTime;
+        if (!IsHoldingFire())
+            fireTimer -= Time.deltaTime;
 
         bool canSeePlayer = CheckForPlayer();
 
@@ -202,11 +205,16 @@ public class EnemyAI : MonoBehaviour
             );
         }
 
-        if (fireTimer <= 0f)
+        if (fireTimer <= 0f && !IsHoldingFire())
         {
             Shoot();
             fireTimer = fireCooldown;
         }
+    }
+
+    private bool IsHoldingFire()
+    {
+        return inventoryView != null && inventoryView.IsOpen;
     }
 
     private void Shoot()

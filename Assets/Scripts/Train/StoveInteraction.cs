@@ -7,6 +7,7 @@ public class StoveInteraction : MonoBehaviour
 
     private bool playerNearby;
     private WagonLayout wagon;
+    private InventoryView inventoryView;
 
     public bool PlayerNearby => playerNearby;
 
@@ -25,11 +26,16 @@ public class StoveInteraction : MonoBehaviour
     {
         if (endingView == null)
             endingView = FindAnyObjectByType<EndingView>();
+
+        inventoryView = FindAnyObjectByType<InventoryView>();
     }
 
     private void Update()
     {
         if (!playerNearby || endingView == null || endingView.IsShown || Keyboard.current == null)
+            return;
+
+        if (inventoryView != null && inventoryView.IsOpen)
             return;
 
         if (!Keyboard.current.fKey.wasPressedThisFrame)

@@ -69,7 +69,7 @@ MonoBehaviour:
   spacing: 0.3
   surfaceLootChance: 0.6
   loot:
-  - prefab: {fileID: 926699169798332876, guid: bdaf50c4e1cee26408209bacd9a921b9, type: 3}
+  - prefab: {fileID: 3208249759482208695, guid: bdaf50c4e1cee26408209bacd9a921b9, type: 3}
     weight: 1
     placement: 0
     maxPerWagon: 0
@@ -77,6 +77,7 @@ MonoBehaviour:
     weight: 1
     placement: 0
     maxPerWagon: 0
+  minNoteDistance: 3.5
   enemies:
   - prefab: {fileID: 1985186993207405653, guid: 920cdb9648ef83c4aacede392646423d, type: 3}
     weight: 0.65
@@ -86,6 +87,7 @@ MonoBehaviour:
     minWagonIndex: 1
   keyHolderPrefab: {fileID: 3594436533046180456, guid: 4f1f1f1e36f36864e8267238e789ff64, type: 3}
   minEnemyDistance: 5
+  minEntryDistance: 6
   weaponSpawns:
   - weapon: {fileID: 11400000, guid: 0f8c633e375d6724181b287d8198bb80, type: 2}
     countFromEnd: 0

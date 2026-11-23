@@ -9,6 +9,7 @@ public class NoteInteraction : MonoBehaviour
     [SerializeField] private NoteView view;
 
     private bool playerNearby;
+    private InventoryView inventoryView;
 
     public bool PlayerNearby => playerNearby;
     public string Title => title;
@@ -19,11 +20,16 @@ public class NoteInteraction : MonoBehaviour
     {
         if (view == null)
             view = FindAnyObjectByType<NoteView>();
+
+        inventoryView = FindAnyObjectByType<InventoryView>();
     }
 
     private void Update()
     {
         if (!playerNearby || view == null || view.IsBusy || Keyboard.current == null)
+            return;
+
+        if (inventoryView != null && inventoryView.IsOpen)
             return;
 
         if (Keyboard.current.fKey.wasPressedThisFrame)
