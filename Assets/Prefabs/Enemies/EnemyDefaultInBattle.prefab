@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
   durability: 60
+  pair: {fileID: 0}
 --- !u!1 &1985186993207405653
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,6 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
   durability: 40
+  pair: {fileID: 1098462339674177323}
 --- !u!1 &8287002541032417054
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,6 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
   durability: 100
+  pair: {fileID: 0}
 --- !u!1 &8919117688839914574
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,6 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
   durability: 40
+  pair: {fileID: 918226932486822740}
 --- !u!1001 &2234526316171218579
 PrefabInstance:
   m_ObjectHideFlags: 0
