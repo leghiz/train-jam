@@ -31,6 +31,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyMovement movement;
     private Animator animator;
     private EnemyEncounter encounter;
+    private NoteView noteView;
 
     private float memoryTimer;
     private float fireTimer;
@@ -53,6 +54,8 @@ public class EnemyAI : MonoBehaviour
             if (playerObject != null)
                 player = playerObject.transform;
         }
+
+        noteView = FindAnyObjectByType<NoteView>();
     }
 
     private void Update()
@@ -70,6 +73,12 @@ public class EnemyAI : MonoBehaviour
                 animator.SetBool("IsShooting", false);
             }
 
+            return;
+        }
+
+        if (noteView != null && noteView.IsOpen)
+        {
+            LosePlayer();
             return;
         }
 
@@ -128,6 +137,20 @@ public class EnemyAI : MonoBehaviour
                 HandleAttack();
                 break;
         }
+    }
+
+    private void LosePlayer()
+    {
+        memoryTimer = 0f;
+        currentState = State.Patrol;
+
+        if (animator != null)
+        {
+            animator.SetBool("IsChasing", false);
+            animator.SetBool("IsShooting", false);
+        }
+
+        movement.ResumePatrol();
     }
 
     private bool CheckForPlayer()

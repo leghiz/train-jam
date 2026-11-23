@@ -50,8 +50,8 @@ public class NoteView : MonoBehaviour
 
         Camera cam = Camera.main;
 
-        if (cam != null)
-            PlaceModel(cam);
+        if (cam != null && modelLight != null)
+            modelLight.transform.position = cam.transform.position;
 
         if (Time.frameCount == openedFrame)
             return;
@@ -94,6 +94,10 @@ public class NoteView : MonoBehaviour
         visibleCharacters = 0f;
 
         CreateModel(note.Visual);
+
+        if (Camera.main != null)
+            PlaceModel(Camera.main);
+
         LockPlayer();
 
         isOpen = true;
@@ -169,15 +173,14 @@ public class NoteView : MonoBehaviour
 
         float worldHeight = 2f * modelDistance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad) * modelScreenSize;
 
-        model.transform.position = cam.transform.position + cam.transform.forward * modelDistance;
         Quaternion roll = Quaternion.Euler(0f, 0f, modelRoll);
         Quaternion standUp = Quaternion.Euler(-90f + modelLean, 0f, 0f);
         Quaternion portrait = Quaternion.Euler(0f, 90f, 0f);
-        model.transform.rotation = cam.transform.rotation * roll * standUp * portrait;
-        model.transform.localScale = Vector3.one * (worldHeight / modelSize);
 
-        if (modelLight != null)
-            modelLight.transform.position = cam.transform.position;
+        model.transform.SetParent(cam.transform, false);
+        model.transform.localPosition = Vector3.forward * modelDistance;
+        model.transform.localRotation = roll * standUp * portrait;
+        model.transform.localScale = Vector3.one * (worldHeight / modelSize);
     }
 
     private bool IsAnyPressed()
