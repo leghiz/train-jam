@@ -229,7 +229,7 @@ public class BattleManager : MonoBehaviour
 
         cam.enabled = enabled;
 
-        AudioListener listener = cam.GetComponent<AudioListener>();
+        AudioListener listener = cam.GetComponentInChildren<AudioListener>(true);
 
         if (listener != null)
             listener.enabled = enabled;

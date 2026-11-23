@@ -27,6 +27,8 @@ public class InventoryView : MonoBehaviour
     [SerializeField] private string healthColor = "#7FD36B";
     [SerializeField] private string stressColor = "#F2B33D";
 
+    [SerializeField] private AudioSource uiSound;
+
     private int selectedIndex = -1;
     private bool wasMovementEnabled;
     private bool wasRotationEnabled;
@@ -115,6 +117,7 @@ public class InventoryView : MonoBehaviour
             LockPlayer();
 
         Select(0);
+        PlayUiSound();
     }
 
     public void Close()
@@ -128,10 +131,15 @@ public class InventoryView : MonoBehaviour
 
         if (!IsBattle)
             UnlockPlayer();
+
+        PlayUiSound();
     }
 
     public void Select(int index)
     {
+        if (selectedIndex >= 0 && index != selectedIndex)
+            PlayUiSound();
+
         selectedIndex = index;
 
         for (int i = 0; i < cells.Length; i++)
@@ -158,7 +166,10 @@ public class InventoryView : MonoBehaviour
         }
 
         if (CanUse(item))
+        {
             GetInventory().Use(index);
+            PlayUiSound();
+        }
     }
 
     public void DropSlot(int index)
@@ -169,6 +180,13 @@ public class InventoryView : MonoBehaviour
             return;
 
         GetInventory().Drop(index);
+        PlayUiSound();
+    }
+
+    private void PlayUiSound()
+    {
+        if (uiSound != null)
+            uiSound.Play();
     }
 
     private void UpdateEventSystem()

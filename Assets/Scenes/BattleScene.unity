@@ -4114,6 +4114,8 @@ MonoBehaviour:
   maxYaw: 3
   maxPitch: 2
   smoothness: 5
+  shakeSpeed: 2
+  blendSpeed: 5
 --- !u!114 &1080488009
 MonoBehaviour:
   m_ObjectHideFlags: 0
