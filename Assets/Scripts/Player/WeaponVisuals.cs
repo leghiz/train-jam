@@ -52,9 +52,12 @@ public class WeaponVisuals : MonoBehaviour
         
         if (lastEquippedWeapon == null || lastEquippedWeapon.worldPrefab == null) 
             return;
-
+        
         currentWeaponModel = Instantiate(lastEquippedWeapon.worldPrefab, weaponHolder);
         currentWeaponModel.transform.localPosition = Vector3.zero;
         currentWeaponModel.transform.localRotation = Quaternion.identity;
+
+        foreach (var pickup in currentWeaponModel.GetComponentsInChildren<ItemPickup>())
+            Destroy(pickup);
     }
 }
