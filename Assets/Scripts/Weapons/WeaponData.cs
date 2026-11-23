@@ -8,7 +8,7 @@ public class WeaponData : PickupData
     public float reloadTime = 1.5f;
 
     [Header("Прицеливание")]
-    public float aimingSensitivity = 0.1f;
+    public float aimingSpeed = 5f;
     public float aimingOscillation = 1f;
 
     [Header("Урон")]
