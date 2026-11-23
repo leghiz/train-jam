@@ -16,6 +16,8 @@ public class TrainGenerator : MonoBehaviour
 
     public Transform player;
 
+    public AudioSource enterSound;
+
     public event Action<TrainGenerator> Generated;
     public event Action<WagonLayout> WagonEntered;
 
@@ -97,6 +99,10 @@ public class TrainGenerator : MonoBehaviour
     {
         if (!HasNextWagon) return false;
         EnterWagon(CurrentIndex + 1);
+
+        if (enterSound != null)
+            enterSound.Play();
+
         return true;
     }
 
