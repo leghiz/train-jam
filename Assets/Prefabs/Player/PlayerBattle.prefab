@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8574164050549963325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2175870524511793991}
+  m_Layer: 0
+  m_Name: WeaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2175870524511793991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8574164050549963325}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.58558506, y: -0.5825268, z: 0.41843918, w: 0.3777055}
+  m_LocalPosition: {x: 0.25, y: 6.23, z: 2.26}
+  m_LocalScale: {x: 18.225237, y: 18.225231, z: 18.225231}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3286777838518680757}
+  m_LocalEulerAnglesHint: {x: 2.588, y: -33.23, z: 92.065}
 --- !u!1 &9023344408116677987
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +44,7 @@ GameObject:
   - component: {fileID: -5454502296613414613}
   - component: {fileID: 8023342657299518671}
   - component: {fileID: 7891098654284240117}
+  - component: {fileID: 149042139204209268}
   m_Layer: 0
   m_Name: PlayerBattle
   m_TagString: Player
@@ -105,6 +137,20 @@ MonoBehaviour:
   density: 0.85
   aimStretch: 2
   aimSeconds: 0.35
+--- !u!114 &149042139204209268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023344408116677987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65914c578ec893c4899a98782f9a3072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponVisuals
+  inventory: {fileID: 0}
+  weaponHolder: {fileID: 2175870524511793991}
 --- !u!1001 &1013210886051481885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,11 +233,19 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 87a5058db27d02646bc46e79b1dbdd93, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2563496969622287784, guid: f21ed7589e8b8c94b84b039fb17646bc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2175870524511793991}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f21ed7589e8b8c94b84b039fb17646bc, type: 3}
 --- !u!4 &685985939135475446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f21ed7589e8b8c94b84b039fb17646bc, type: 3}
+  m_PrefabInstance: {fileID: 1013210886051481885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3286777838518680757 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2563496969622287784, guid: f21ed7589e8b8c94b84b039fb17646bc, type: 3}
   m_PrefabInstance: {fileID: 1013210886051481885}
   m_PrefabAsset: {fileID: 0}
