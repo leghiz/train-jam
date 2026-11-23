@@ -53,6 +53,9 @@ public class BattleSetup : MonoBehaviour
             return;
 
         battlePlayerStats.CopyFrom(originalPlayerStats);
+
+        InitializeCamera(BattleContext.Weapon);
+        Debug.Log("‡Îˇ ÛÎ˛");
     }
 
     private void SpawnEnemies()
@@ -95,5 +98,24 @@ public class BattleSetup : MonoBehaviour
         }
 
         originalPlayerStats.CopyFrom(battlePlayerStats);
+    }
+
+    private void InitializeCamera(WeaponData weapon)
+    {
+        if (weapon == null)
+        {
+            Debug.Log("Œ–”∆»ﬂ Õ≈“");
+            return;
+        }
+
+        CameraParallax cameraParallax = Camera.main.GetComponentInChildren<CameraParallax>();
+
+        if (cameraParallax == null)
+        {
+            Debug.Log("œ¿–¿ÀÀ¿ —¿ Õ≈“");
+            return;
+        }
+
+        cameraParallax.SetWeapon(weapon);
     }
 }
