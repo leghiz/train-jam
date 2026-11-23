@@ -198,7 +198,7 @@ public class TrainGenerator : MonoBehaviour
                 var entry = PickWeighted(allowed, e => e.weight);
                 var enemy = Create(entry.prefab, wagon, FacingEntry(wagon));
                 int wagonIndex = i;
-                if (_spaces[i].TryPlaceOnFloor(enemy.transform, _rng, p => FarFromEnemies(wagonIndex, p)))
+                if (_spaces[i].TryPlaceOnFloor(enemy.transform, _rng, p => FarFromEnemies(wagonIndex, p) && FarFromEntry(wagonIndex, p)))
                 {
                     _enemyPositions[i].Add(enemy.transform.position);
                 }
@@ -218,7 +218,8 @@ public class TrainGenerator : MonoBehaviour
         var wagon = _wagons[wagonIndex];
         var holder = Create(config.keyHolderPrefab, wagon, FacingEntry(wagon));
         var space = _spaces[wagonIndex];
-        bool placed = space.TryPlaceOnFloor(holder.transform, _rng, p => FarFromEnemies(wagonIndex, p))
+        bool placed = space.TryPlaceOnFloor(holder.transform, _rng, p => FarFromEnemies(wagonIndex, p) && FarFromEntry(wagonIndex, p))
+                   || space.TryPlaceOnFloor(holder.transform, _rng, p => FarFromEntry(wagonIndex, p))
                    || space.TryPlaceOnFloor(holder.transform, _rng);
 
         if (placed)
@@ -244,6 +245,43 @@ public class TrainGenerator : MonoBehaviour
         return true;
     }
 
+    private bool FarFromEntry(int wagonIndex, Vector3 point)
+    {
+        float min = config.minEntryDistance;
+        WagonLayout wagon = _wagons[wagonIndex];
+        Transform spawn = wagon.playerSpawn != null ? wagon.playerSpawn : wagon.entry;
+
+        if (min <= 0f || spawn == null)
+            return true;
+
+        return FlatDistance(spawn.position, point) >= min;
+    }
+
+    private bool FarFromNotes(int wagonIndex, Vector3 point)
+    {
+        float min = config.minNoteDistance;
+
+        if (min <= 0f)
+            return true;
+
+        NoteInteraction[] notes = _wagons[wagonIndex].GetComponentsInChildren<NoteInteraction>(true);
+
+        foreach (NoteInteraction note in notes)
+        {
+            if (FlatDistance(note.transform.position, point) < min)
+                return false;
+        }
+
+        return true;
+    }
+
+    private static float FlatDistance(Vector3 a, Vector3 b)
+    {
+        float dx = a.x - b.x;
+        float dz = a.z - b.z;
+        return Mathf.Sqrt(dx * dx + dz * dz);
+    }
+
     private void SpawnLoot()
     {
         var loot = config.loot.FindAll(l => l.prefab && l.weight > 0f);
@@ -251,6 +289,7 @@ public class TrainGenerator : MonoBehaviour
 
         for (int i = 0; i < _wagons.Count; i++)
         {
+            int wagonIndex = i;
             int wanted = RandomRange(_entries[i].lootCount);
             var counts = new Dictionary<LootEntry, int>();
 
@@ -262,7 +301,7 @@ public class TrainGenerator : MonoBehaviour
                 var entry = PickWeighted(available, l => l.weight);
                 counts.TryGetValue(entry, out var n);
                 counts[entry] = n + 1;
-                TryPlace(entry.prefab, entry.placement, i);
+                TryPlace(entry.prefab, entry.placement, i, p => FarFromNotes(wagonIndex, p));
             }
         }
     }
@@ -285,7 +324,14 @@ public class TrainGenerator : MonoBehaviour
             if (index < 0 || index >= _wagons.Count)
                 continue;
 
-            GameObject obj = TryPlace(rule.weapon.worldPrefab, LootPlacement.SurfaceOnly, index);
+            int wagonIndex = index;
+            Func<Vector3, bool> awayFromNotes = p => FarFromNotes(wagonIndex, p);
+
+            GameObject obj = TryPlace(rule.weapon.worldPrefab, LootPlacement.SurfaceOnly, index, awayFromNotes);
+            if (obj == null)
+                obj = TryPlace(rule.weapon.worldPrefab, LootPlacement.FloorOnly, index, awayFromNotes);
+            if (obj == null)
+                obj = TryPlace(rule.weapon.worldPrefab, LootPlacement.SurfaceOnly, index);
             if (obj == null)
                 obj = TryPlace(rule.weapon.worldPrefab, LootPlacement.FloorOnly, index);
             if (obj == null)
@@ -297,7 +343,7 @@ public class TrainGenerator : MonoBehaviour
         }
     }
 
-    private GameObject TryPlace(GameObject prefab, LootPlacement placement, int wagonIndex)
+    private GameObject TryPlace(GameObject prefab, LootPlacement placement, int wagonIndex, Func<Vector3, bool> accept = null)
     {
         var space = _spaces[wagonIndex];
         Quaternion randomYaw = Quaternion.Euler(0f, (float)_rng.NextDouble() * 360f, 0f);
@@ -308,16 +354,16 @@ public class TrainGenerator : MonoBehaviour
         switch (placement)
         {
             case LootPlacement.FloorOnly:
-                placed = space.TryPlaceOnFloor(t, _rng);
+                placed = space.TryPlaceOnFloor(t, _rng, accept);
                 break;
             case LootPlacement.SurfaceOnly:
-                placed = space.TryPlaceOnSurface(t, _rng);
+                placed = space.TryPlaceOnSurface(t, _rng, accept);
                 break;
             default:
                 bool surfaceFirst = space.HasSurfaces && _rng.NextDouble() < config.surfaceLootChance;
                 placed = surfaceFirst
-                    ? space.TryPlaceOnSurface(t, _rng) || space.TryPlaceOnFloor(t, _rng)
-                    : space.TryPlaceOnFloor(t, _rng) || space.TryPlaceOnSurface(t, _rng);
+                    ? space.TryPlaceOnSurface(t, _rng, accept) || space.TryPlaceOnFloor(t, _rng, accept)
+                    : space.TryPlaceOnFloor(t, _rng, accept) || space.TryPlaceOnSurface(t, _rng, accept);
                 break;
         }
 

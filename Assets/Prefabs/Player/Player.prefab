@@ -1061,6 +1061,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: -1070350730909333850}
+  - {fileID: 2315001271753006525}
   m_Father: {fileID: 2563496969622287784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2898355158428612036
@@ -1390,6 +1391,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0021145344, y: 1.5067973, z: 0.45167089}
     m_Extent: {x: 3.5145113, y: 5.5397334, z: 2.434508}
   m_DirtyAABB: 0
+--- !u!1 &7863303805348379514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2315001271753006525}
+  m_Layer: 0
+  m_Name: WeaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2315001271753006525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7863303805348379514}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.19072677, y: -0.21403411, z: 0.6939917, w: 0.6604455}
+  m_LocalPosition: {x: 1.22, y: 2.64, z: 0.31}
+  m_LocalScale: {x: 9.6594305, y: 9.6594305, z: 9.6594305}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1852576806548013000}
+  m_LocalEulerAnglesHint: {x: 2.588, y: -33.23, z: 92.065}
 --- !u!1 &8513859187771203891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,6 +1573,7 @@ GameObject:
   - component: {fileID: 937787687848577392}
   - component: {fileID: 7117570049234356537}
   - component: {fileID: -9035441649375499137}
+  - component: {fileID: 7621427013165828002}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1722,3 +1755,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   pickupRadius: 2
+--- !u!114 &7621427013165828002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023344408116677987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65914c578ec893c4899a98782f9a3072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponVisuals
+  inventory: {fileID: 6544009365698777184}
+  weaponHolder: {fileID: 2315001271753006525}

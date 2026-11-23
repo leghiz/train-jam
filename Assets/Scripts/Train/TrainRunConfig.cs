@@ -26,12 +26,16 @@ public class TrainRunConfig : ScriptableObject
     [Header("Лут")]
     public List<LootEntry> loot = new List<LootEntry>();
 
+    [Min(0f)] public float minNoteDistance = 3.5f;
+
     [Header("Враги")]
     public List<EnemyEntry> enemies = new List<EnemyEntry>();
 
     public GameObject keyHolderPrefab;
 
     [Min(0f)] public float minEnemyDistance = 5f;
+
+    [Min(0f)] public float minEntryDistance = 6f;
 
     [Header("Оружие")]
     public WeaponSpawn[] weaponSpawns = Array.Empty<WeaponSpawn>();
