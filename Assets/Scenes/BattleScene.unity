@@ -511,6 +511,8 @@ MonoBehaviour:
   padding: 1.1
   rendererIndex: 1
   layerName: ItemPreview
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 3
 --- !u!114 &55307848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3958,6 +3960,8 @@ MonoBehaviour:
   padding: 1.1
   rendererIndex: 1
   layerName: ItemPreview
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 3
 --- !u!114 &982184791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4086,6 +4090,8 @@ MonoBehaviour:
   padding: 1.2
   rendererIndex: 1
   layerName: ItemPreview
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 3
 --- !u!114 &1024494880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4443,7 +4449,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -5248,6 +5254,8 @@ MonoBehaviour:
   padding: 1.1
   rendererIndex: 1
   layerName: ItemPreview
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 3
 --- !u!114 &1390253080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6949,9 +6957,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 21.04
-  m_Range: 3.1470988
+  m_Color: {r: 1, g: 0.706765, b: 0.2688679, a: 1}
+  m_Intensity: 9.1
+  m_Range: 7.09
   m_SpotAngle: 73.58853
   m_InnerSpotAngle: 24.2
   m_CookieSize2D: {x: 0.5, y: 0.5}
@@ -7013,7 +7021,7 @@ Transform:
   m_GameObject: {fileID: 1737125165}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.024001, y: -2.0785103, z: -4.465}
+  m_LocalPosition: {x: 0.302, y: -2.0785103, z: -4.819}
   m_LocalScale: {x: 0.6034415, y: 0.6034415, z: 0.6034415}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7200,6 +7208,8 @@ MonoBehaviour:
   eventSystem: {fileID: 0}
   healthColor: '#7FD36B'
   stressColor: '#F2B33D'
+  damageColor: '#E0604F'
+  ammoColor: '#6FA8DC'
   uiSound: {fileID: 0}
   weaponPreview: {fileID: 1024494879}
   selectedPreview: {fileID: 2034504205}
@@ -7549,9 +7559,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20.95
-  m_Range: 3.1470988
+  m_Color: {r: 1, g: 0.706765, b: 0.2688679, a: 1}
+  m_Intensity: 9.1
+  m_Range: 7.09
   m_SpotAngle: 73.58853
   m_InnerSpotAngle: 24.2
   m_CookieSize2D: {x: 0.5, y: 0.5}
@@ -7613,7 +7623,7 @@ Transform:
   m_GameObject: {fileID: 1843698222}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.214, y: -2.0785103, z: -5.636}
+  m_LocalPosition: {x: -1.075, y: -2.0785103, z: -6.139}
   m_LocalScale: {x: 0.6034415, y: 0.6034415, z: 0.6034415}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8253,6 +8263,8 @@ MonoBehaviour:
   padding: 1.1
   rendererIndex: 1
   layerName: ItemPreview
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 3
 --- !u!114 &2034504206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8936,6 +8948,8 @@ MonoBehaviour:
   padding: 1.1
   rendererIndex: 1
   layerName: ItemPreview
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightIntensity: 3
 --- !u!114 &2145847097
 MonoBehaviour:
   m_ObjectHideFlags: 0

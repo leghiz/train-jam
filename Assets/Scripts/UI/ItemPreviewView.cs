@@ -13,11 +13,14 @@ public class ItemPreviewView : MonoBehaviour
     [SerializeField] private float padding = 1.1f;
     [SerializeField] private int rendererIndex = 1;
     [SerializeField] private string layerName = "ItemPreview";
+    [SerializeField] private Color lightColor = Color.white;
+    [SerializeField] private float lightIntensity = 3f;
 
     private static int stageCount;
 
     private RawImage image;
     private Camera stageCamera;
+    private Light stageLight;
     private RenderTexture texture;
     private Transform stage;
     private Transform pivot;
@@ -122,6 +125,14 @@ public class ItemPreviewView : MonoBehaviour
         data.SetRenderer(rendererIndex);
         data.renderPostProcessing = false;
         data.renderShadows = false;
+
+        GameObject lightObject = new GameObject("Light");
+        lightObject.transform.SetParent(stage, false);
+        stageLight = lightObject.AddComponent<Light>();
+        stageLight.type = LightType.Point;
+        stageLight.color = lightColor;
+        stageLight.intensity = lightIntensity;
+        stageLight.shadows = LightShadows.None;
     }
 
     private GameObject CreateModel(GameObject source, Quaternion rotation)
@@ -199,6 +210,8 @@ public class ItemPreviewView : MonoBehaviour
 
         stageCamera.orthographicSize = Mathf.Max(halfHeight, flatRadius / aspect, 0.01f) * padding;
         stageCamera.transform.localPosition = new Vector3(0f, 0f, -radius - 1f);
+        stageLight.transform.localPosition = new Vector3(radius, radius, -radius - 1f);
+        stageLight.range = (radius + 1f) * 4f;
         stageCamera.transform.localRotation = Quaternion.identity;
         stageCamera.nearClipPlane = 0.01f;
         stageCamera.farClipPlane = radius * 2f + 2f;
