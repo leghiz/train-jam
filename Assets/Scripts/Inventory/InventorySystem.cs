@@ -98,13 +98,30 @@ public class InventorySystem : MonoBehaviour
     public bool Drop(int index)
     {
         ItemData item = Get(index);
+
         if (item == null || item.worldPrefab == null)
             return false;
+        
+        Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
+        
+        float randomDistance = UnityEngine.Random.Range(0.8f, dropDistance + 1f);
+
+        Vector3 offset = new Vector3(
+            randomDirection.x,
+            0f,
+            randomDirection.y
+        ) * randomDistance;
+        
+        Vector3 position = transform.position + offset + Vector3.up * 0.2f;
+
+        Transform parent = generator != null && generator.CurrentWagon != null
+            ? generator.CurrentWagon.transform
+            : null;
+
+        Instantiate(item.worldPrefab, position, Quaternion.identity, parent);
 
         Remove(index);
-        Vector3 position = transform.position + transform.forward * dropDistance;
-        Transform parent = generator != null && generator.CurrentWagon != null ? generator.CurrentWagon.transform : null;
-        Instantiate(item.worldPrefab, position, Quaternion.identity, parent);
+
         return true;
     }
 
