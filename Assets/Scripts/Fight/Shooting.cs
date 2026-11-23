@@ -87,7 +87,8 @@ public class Shooting : MonoBehaviour
             spawnPos = weaponHolder.position + direction * muzzleForward;
         }
 
-        Quaternion spawnRotation = Quaternion.LookRotation(direction);
+        Vector3 flatDirection = new Vector3(direction.x, 90f, direction.z);
+        Quaternion spawnRotation = Quaternion.LookRotation(flatDirection);
 
         GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, spawnRotation);
         IgnorePlayer(bulletObj);
