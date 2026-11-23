@@ -99,7 +99,7 @@ internal class WagonSpace
         return false;
     }
 
-    public bool TryPlaceOnSurface(Transform obj, System.Random rng)
+    public bool TryPlaceOnSurface(Transform obj, System.Random rng, System.Func<Vector3, bool> accept = null)
     {
         if (_surfaces.Count == 0) return false;
         var shape = Measure(obj);
@@ -119,8 +119,11 @@ internal class WagonSpace
                 if (Overlaps(rect, surface.taken)) continue;
                 if (!IsSupported(surface, rect)) continue;
 
+                Vector3 local = new Vector3(pivot.x, surface.top - shape.min.y, pivot.y);
+                if (accept != null && !accept(_wagon.TransformPoint(local))) continue;
+
                 surface.taken.Add(rect);
-                obj.localPosition = new Vector3(pivot.x, surface.top - shape.min.y, pivot.y);
+                obj.localPosition = local;
                 return true;
             }
         }
