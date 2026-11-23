@@ -20,5 +20,5 @@ MonoBehaviour:
   magazineSize: 1
   reloadTime: 1.5
   aimingSpeed: 5
-  aimingOscillation: 2
+  aimingOscillation: 15
   damage: 20
