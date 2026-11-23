@@ -7,10 +7,16 @@ public class Crosshair : MonoBehaviour
     [SerializeField] private GameObject visual;
 
     private RectTransform rectTransform;
+    private float aimingSpeed = 5f;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+
+        WeaponData weapon = BattleContext.Weapon;
+
+        if (weapon != null)
+            aimingSpeed = weapon.aimingSpeed;
     }
 
     private void OnDisable()
@@ -21,7 +27,8 @@ public class Crosshair : MonoBehaviour
     private void Update()
     {
         TurnManager turnManager = TurnManager.Instance;
-        bool isPlayerTurn = turnManager != null && turnManager.CurrentTurn == TurnManager.Turn.Player;
+        bool isPlayerTurn = turnManager != null &&
+                            turnManager.CurrentTurn == TurnManager.Turn.Player;
 
         visual.SetActive(isPlayerTurn);
         Cursor.visible = false;
@@ -31,6 +38,12 @@ public class Crosshair : MonoBehaviour
         if (mouse == null)
             return;
 
-        rectTransform.position = mouse.position.ReadValue();
+        Vector3 targetPosition = mouse.position.ReadValue();
+
+        rectTransform.position = Vector3.Lerp(
+            rectTransform.position,
+            targetPosition,
+            aimingSpeed * Time.deltaTime
+        );
     }
 }

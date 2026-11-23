@@ -13,9 +13,22 @@ public class Aiming : MonoBehaviour
 
     private float deviation = 0f;
     private float currentAngleY = 0f;
+    private WeaponData weapon;
 
     void Start()
     {
+        weapon = BattleContext.Weapon;
+
+        if (weapon != null)
+        {
+
+            Debug.Log($"Оружие: {weapon.displayName}, чувствительность: {sensitivity}");
+        }
+        else
+        {
+            Debug.LogWarning("Aiming: оружие не найдено!");
+        }
+
         deviation = transform.localEulerAngles.y;
         currentAngleY = 0f;
     }

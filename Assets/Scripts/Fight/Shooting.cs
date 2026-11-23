@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Camera))]
 public class Shooting : MonoBehaviour
 {
-    [Header("Пуля")]
+    [Header("пїЅпїЅпїЅпїЅ")]
     public GameObject bulletPrefab;
 
-    [Header("Стрельба")]
+    [Header("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
     public BattleConfig config;
     public float spawnOffset = 0.1f;
 
@@ -17,11 +17,13 @@ public class Shooting : MonoBehaviour
     private Ammo ammo;
     private string[] bulletType = { "blue", "blue", "red", "blue", "red" };
     private int currentIndex = 0;
+    private WeaponData weapon;
 
     void Start()
     {
         camera = GetComponent<Camera>();
         ammo = GetComponent<Ammo>();
+        weapon = BattleContext.Weapon;
     }
 
     void Update()
@@ -62,7 +64,7 @@ public class Shooting : MonoBehaviour
 
         Bullet bullet = bulletObj.GetComponent<Bullet>();
         if (bullet != null)
-            bullet.damage = config.playerDamage;
+            bullet.damage = weapon != null ? weapon.damage : config.playerDamage;
         if (bullet != null) bullet.Init(ray.direction, type);
     }
 
