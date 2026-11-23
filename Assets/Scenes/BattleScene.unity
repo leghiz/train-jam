@@ -1698,6 +1698,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MedKit
       objectReference: {fileID: 0}
+    - target: {fileID: 8660326977923178468, guid: bdaf50c4e1cee26408209bacd9a921b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.666
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660326977923178468, guid: bdaf50c4e1cee26408209bacd9a921b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.477
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660326977923178468, guid: bdaf50c4e1cee26408209bacd9a921b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.568
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4099,6 +4111,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 9015507570397160986, guid: 819a1628c935b49408ac5ca16188d6da, type: 3}
   config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
   spawnOffset: 0.1
+  crosshair: {fileID: 675681856}
 --- !u!114 &1080488008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6707,6 +6720,7 @@ MonoBehaviour:
   eventSystem: {fileID: 0}
   healthColor: '#7FD36B'
   stressColor: '#F2B33D'
+  uiSound: {fileID: 0}
 --- !u!1 &1831144249
 GameObject:
   m_ObjectHideFlags: 0
