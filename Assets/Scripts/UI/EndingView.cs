@@ -51,6 +51,8 @@ public class EndingView : MonoBehaviour
 
         isShown = true;
         timer = 0f;
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
         screen.SetActive(true);
         SetFade(0f);
         content.alpha = 0f;

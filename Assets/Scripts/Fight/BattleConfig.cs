@@ -33,4 +33,23 @@ public class BattleConfig : ScriptableObject
 
     [Header("Конец боя")]
     public float endDelay = 1f;
+
+    [Header("Звуки")]
+    public AudioClip shotSound;
+    [Range(0f, 1f)] public float shotVolume = 0.7f;
+    public AudioClip shellSound;
+    [Range(0f, 1f)] public float shellVolume = 0.5f;
+    public float shellDelay = 0.35f;
+    public AudioClip reloadSound;
+    [Range(0f, 1f)] public float reloadVolume = 0.6f;
+    public AudioClip armorHitSound;
+    public AudioClip bodyHitSound;
+    [Range(0f, 1f)] public float hitVolume = 0.8f;
+
+    [Header("Эффекты выстрела")]
+    public GameObject shotSmokePrefab;
+    public float shotShake = 0.55f;
+    public float shotKick = 1f;
+    public float enemyShotShake = 0.2f;
+    public float playerHitShake = 0.6f;
 }

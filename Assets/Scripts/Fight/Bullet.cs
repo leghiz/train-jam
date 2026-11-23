@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public float lifetime = 5f;
     public int damage = 25;
     public string type;
+    public BattleConfig config;
 
     private bool hasHit;
 
@@ -47,7 +48,27 @@ public class Bullet : MonoBehaviour
         if (playerStats != null)
         {
             playerStats.TakeDamage(damage);
+            PlayPlayerHit();
         }
+    }
+
+    private void PlayPlayerHit()
+    {
+        if (config == null)
+            return;
+
+        Camera camera = Camera.main;
+
+        if (camera == null)
+            return;
+
+        if (config.bodyHitSound != null)
+            AudioSource.PlayClipAtPoint(config.bodyHitSound, camera.transform.position, config.hitVolume);
+
+        CameraShake shake = camera.GetComponent<CameraShake>();
+
+        if (shake != null)
+            shake.Shake(config.playerHitShake);
     }
 
     public void Init(Vector3 direction, string bulletType)

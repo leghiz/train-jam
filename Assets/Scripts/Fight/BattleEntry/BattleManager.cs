@@ -18,7 +18,14 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Rigidbody playerRigidbody;
     [SerializeField] private PlayerStats originalPlayerStats;
 
+    [Header("Transition")]
+    [SerializeField] private BattleTransitionView transitionView;
+    [SerializeField] private BattleTransitionConfig transitionConfig;
+    [SerializeField] private AudioSource transitionSound;
+    [SerializeField] private AudioSource ambienceSound;
+
     private Camera battleCamera;
+    private AsyncOperation loadingOperation;
     private BattleSetup battleSetup;
 
     private Scene explorationScene;
@@ -40,6 +47,21 @@ public class BattleManager : MonoBehaviour
         }
 
         Instance = this;
+
+        if (transitionView != null)
+            transitionView.Covered += OnTransitionCovered;
+    }
+
+    private void OnDestroy()
+    {
+        if (transitionView != null)
+            transitionView.Covered -= OnTransitionCovered;
+    }
+
+    private void OnTransitionCovered()
+    {
+        if (loadingOperation != null)
+            loadingOperation.allowSceneActivation = true;
     }
 
     public void StartBattle(EnemyEncounter enemy, bool enemyAttackedFirst = false)
@@ -97,21 +119,42 @@ public class BattleManager : MonoBehaviour
             playerRigidbody.linearVelocity = Vector3.zero;
             playerRigidbody.angularVelocity = Vector3.zero;
         }
-        
-        
-        SetCameraEnabled(explorationCamera, false);
 
-        StartCoroutine(LoadBattleScene());
+        if (ambienceSound != null)
+            ambienceSound.Pause();
+
+        if (transitionSound != null)
+            transitionSound.Play();
+
+        StartCoroutine(LoadBattleScene(enemy));
     }
 
-    private IEnumerator LoadBattleScene()
+    private IEnumerator LoadBattleScene(EnemyEncounter enemy)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(
             battleSceneName,
             LoadSceneMode.Additive
         );
 
+        bool useTransition =
+            transitionView != null &&
+            transitionConfig != null &&
+            explorationCamera != null;
+
+        if (useTransition)
+        {
+            loadingOperation = operation;
+            operation.allowSceneActivation = false;
+
+            Vector3 aimPoint = enemy.transform.position + Vector3.up * transitionConfig.aimHeight;
+            transitionView.Play(explorationCamera, aimPoint, transitionConfig);
+        }
+
         yield return operation;
+
+        loadingOperation = null;
+
+        SetCameraEnabled(explorationCamera, false);
 
         Scene battleScene =
             SceneManager.GetSceneByName(battleSceneName);
@@ -206,7 +249,12 @@ public class BattleManager : MonoBehaviour
 
     private void RestoreExploration()
     {
-        
+        if (transitionView != null)
+            transitionView.Cancel();
+
+        if (ambienceSound != null)
+            ambienceSound.UnPause();
+
         if (playerMovement != null)
             playerMovement.enabled = wasMovementEnabled;
 

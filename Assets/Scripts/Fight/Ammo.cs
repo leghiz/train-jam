@@ -17,6 +17,8 @@ public class Ammo : MonoBehaviour
 
     private float reloadTime;
 
+    public float ReloadTime => reloadTime;
+
     public bool CanShoot
     {
         get { return !IsReloading && RoundsLeft > 0; }

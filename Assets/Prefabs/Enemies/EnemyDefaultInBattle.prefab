@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  durability: 60
+  durability: 42
   pair: {fileID: 0}
 --- !u!1 &1985186993207405653
 GameObject:
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ae7db735c3d7c4eaef7ea2337fc2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyArmor
-  health: 100
+  health: 60
   config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!114 &335400256532618964
 MonoBehaviour:
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  durability: 40
+  durability: 28
   pair: {fileID: 1098462339674177323}
 --- !u!1 &8287002541032417054
 GameObject:
@@ -708,7 +708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  durability: 100
+  durability: 70
   pair: {fileID: 0}
 --- !u!1 &8919117688839914574
 GameObject:
@@ -835,7 +835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8900a2f6abf1ead479e3c0f8a079a9f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Armor
-  durability: 40
+  durability: 28
   pair: {fileID: 918226932486822740}
 --- !u!1001 &2234526316171218579
 PrefabInstance:

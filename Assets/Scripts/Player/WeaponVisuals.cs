@@ -8,6 +8,8 @@ public class WeaponVisuals : MonoBehaviour
     private GameObject currentWeaponModel;
     private WeaponData lastEquippedWeapon;
 
+    public Transform WeaponHolder => weaponHolder;
+
     private void Awake()
     {
         if (inventory == null)

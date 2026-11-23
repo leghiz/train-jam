@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: WeaponDefault
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   id: default
-  displayName: "\u0411\u0430\u0437\u043E\u0432\u043E\u0435 \u043E\u0440\u0443\u0436\u0438\u0435"
+  displayName: "\u0422\u044F\u0436\u0435\u043B\u044B\u0439 \u043F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
   worldPrefab: {fileID: 5429000715818447594, guid: f6b6c650a98a80b49ad99d6ac17d092c, type: 3}
   previewRotation: {x: -90, y: 180, z: 0}
   description: "\u041C\u043E\u0449\u043D\u043E\u0435 \u043E\u0440\u0443\u0436\u0438\u0435 \u0441 <color=#6FA8DC>\u0434\u043E\u043B\u0433\u043E\u0439</color> \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u043E\u0439. \u0422\u0440\u0435\u0431\u0443\u0435\u0442 \u0432\u044B\u0434\u0435\u0440\u0436\u043A\u0438 \u0438 <color=#F2B33D>\u0442\u0432\u0435\u0440\u0434\u043E\u0439</color>. \u0440\u0443\u043A\u0438."
   magazineSize: 1
-  reloadTime: 3
+  reloadTime: 2.4
   aimingSpeed: 5
-  aimingOscillation: 20
-  damage: 20
+  aimingOscillation: 13
+  damage: 40

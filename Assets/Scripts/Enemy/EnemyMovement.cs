@@ -18,7 +18,15 @@ public class EnemyMovement : MonoBehaviour
     public int maxAttempts = 20;
     public float navMeshSearchRadius = 2f;
 
+    [Header("Footsteps")]
+    [SerializeField] private AudioSource footstepSound;
+    [SerializeField] private AudioClip[] footstepClips;
+    [SerializeField] private float stepDistance = 0.9f;
+    [SerializeField] private float minPitch = 0.85f;
+    [SerializeField] private float maxPitch = 1.1f;
+
     private NavMeshAgent agent;
+    private float stepTimer;
 
     private Vector3 patrolCenter;
     private Vector3 currentTarget;
@@ -74,6 +82,29 @@ public class EnemyMovement : MonoBehaviour
         SetNewPatrolTarget();
     }
 
+    private void UpdateFootsteps()
+    {
+        if (footstepSound == null || agent == null || footstepClips == null || footstepClips.Length == 0)
+            return;
+
+        float speed = agent.velocity.magnitude;
+
+        if (agent.isStopped || speed <= 0.1f)
+        {
+            stepTimer = 0f;
+            return;
+        }
+
+        stepTimer -= Time.deltaTime;
+
+        if (stepTimer > 0f)
+            return;
+
+        footstepSound.pitch = Random.Range(minPitch, maxPitch);
+        footstepSound.PlayOneShot(footstepClips[Random.Range(0, footstepClips.Length)]);
+        stepTimer = stepDistance / speed;
+    }
+
     private void Update()
     {
         if (animator != null && agent != null)
@@ -81,6 +112,8 @@ public class EnemyMovement : MonoBehaviour
             bool isMoving = !agent.isStopped && agent.velocity.magnitude > 0.1f;
             animator.SetBool("IsMoving", isMoving);
         }
+
+        UpdateFootsteps();
         
         if (!isPatrolling)
             return;

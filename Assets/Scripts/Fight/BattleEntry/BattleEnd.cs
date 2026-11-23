@@ -110,7 +110,7 @@ public class BattleEnd : MonoBehaviour
         if (enemy.EncounterData == null)
             return;
 
-        List<ItemPickup> loot = RollLoot(enemy.EncounterData);
+        List<GameObject> loot = RollLoot(enemy.EncounterData);
         Transform parent = enemy.transform.parent;
         Transform hero = null;
 
@@ -132,23 +132,32 @@ public class BattleEnd : MonoBehaviour
                 position = enemy.transform.position + offset;
             }
 
-            ItemPickup item = Instantiate(loot[i], position, Quaternion.identity, parent);
+            GameObject item = Instantiate(loot[i], position, loot[i].transform.rotation, parent);
 
             if (parent == null)
-                SceneManager.MoveGameObjectToScene(item.gameObject, enemy.gameObject.scene);
+                SceneManager.MoveGameObjectToScene(item, enemy.gameObject.scene);
         }
     }
 
-    private List<ItemPickup> RollLoot(EncounterData data)
+    private List<GameObject> RollLoot(EncounterData data)
     {
-        List<ItemPickup> result = new List<ItemPickup>();
+        List<GameObject> result = new List<GameObject>();
 
         if (data.Loot != null)
         {
             foreach (ItemPickup item in data.Loot)
             {
                 if (item != null)
-                    result.Add(item);
+                    result.Add(item.gameObject);
+            }
+        }
+
+        if (data.NoteLoot != null)
+        {
+            foreach (GameObject note in data.NoteLoot)
+            {
+                if (note != null)
+                    result.Add(note);
             }
         }
 
@@ -157,7 +166,7 @@ public class BattleEnd : MonoBehaviour
             foreach (EncounterData.LootChance entry in data.RandomLoot)
             {
                 if (entry.item != null && Random.value < entry.chance)
-                    result.Add(entry.item);
+                    result.Add(entry.item.gameObject);
             }
         }
 

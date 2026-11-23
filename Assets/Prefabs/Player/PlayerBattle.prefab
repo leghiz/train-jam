@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2b47ee4d8bb5949b2bea0584c32742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  maxHealth: 100
+  maxHealth: 150
   maxStress: 100
 --- !u!114 &8023342657299518671
 MonoBehaviour:
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9023344408116677987}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07bc81be281b6de4cbacbb698d2fbff3, type: 3}
   m_Name: 

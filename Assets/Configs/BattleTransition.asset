@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7141de1f097b2ab4f82c7c16eaebed0d, type: 3}
+  m_Name: BattleTransition
+  m_EditorClassIdentifier: Assembly-CSharp::BattleTransitionConfig
+  zoomSeconds: 0.7
+  punchFov: 8
+  aimHeight: 1.2
+  settleSeconds: 1.6
+  revealFov: 22
+  hudDelay: 0.45
+  flash: 0.35
+  flashSeconds: 0.45

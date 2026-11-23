@@ -22,8 +22,11 @@ public class EnemyArmor : MonoBehaviour
                 armorMultiplier = config.armorPiercingArmorMultiplier;
 
             armor.TakeHit((int)(armorMultiplier * damage));
+            PlayHitSound(config.armorHitSound, hitObject);
             return;
         }
+
+        PlayHitSound(config.bodyHitSound, hitObject);
 
         if (type == "blue")
         {
@@ -39,6 +42,14 @@ public class EnemyArmor : MonoBehaviour
         }
 
         if (health <= 0) Die();
+    }
+
+    private void PlayHitSound(AudioClip clip, GameObject hitObject)
+    {
+        if (clip == null)
+            return;
+
+        AudioSource.PlayClipAtPoint(clip, hitObject.transform.position, config.hitVolume);
     }
 
     private void Die()

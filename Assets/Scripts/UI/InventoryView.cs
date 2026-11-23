@@ -35,11 +35,15 @@ public class InventoryView : MonoBehaviour
     [SerializeField] private ItemPreviewView selectedPreview;
     [SerializeField] private InventoryCellView weaponCell;
     [SerializeField] private NoteView noteView;
+    [SerializeField] private float backdropFadeSpeed = 6f;
 
     private int selectedIndex = -1;
     private bool wasMovementEnabled;
     private bool wasRotationEnabled;
     private bool wasTargetingEnabled;
+    private float backdrop;
+
+    private static readonly int MenuBlurId = Shader.PropertyToID("_MenuBlur");
 
     public bool IsOpen
     {
@@ -93,6 +97,7 @@ public class InventoryView : MonoBehaviour
     {
         UpdateEventSystem();
         HandleToggle();
+        UpdateBackdrop();
 
         if (!IsOpen)
             return;
@@ -120,6 +125,29 @@ public class InventoryView : MonoBehaviour
 
         MoveCursor();
         RefreshDetails();
+    }
+
+    private void UpdateBackdrop()
+    {
+        float target = 0f;
+
+        if (IsOpen)
+            target = 1f;
+
+        if (backdrop == target)
+            return;
+
+        backdrop = Mathf.MoveTowards(backdrop, target, backdropFadeSpeed * Time.unscaledDeltaTime);
+        Shader.SetGlobalFloat(MenuBlurId, backdrop);
+    }
+
+    private void OnDisable()
+    {
+        if (backdrop <= 0f)
+            return;
+
+        backdrop = 0f;
+        Shader.SetGlobalFloat(MenuBlurId, 0f);
     }
 
     public void Open()

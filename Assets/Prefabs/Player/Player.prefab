@@ -1693,7 +1693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2b47ee4d8bb5949b2bea0584c32742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  maxHealth: 100
+  maxHealth: 150
   maxStress: 100
 --- !u!114 &6544009365698777184
 MonoBehaviour:
@@ -1711,6 +1711,10 @@ MonoBehaviour:
   slotCount: 4
   startingWeapon: {fileID: 0}
   dropDistance: 1.2
+  dropRingStep: 0.4
+  dropRings: 3
+  dropAngleStep: 30
+  dropFloorTolerance: 0.15
 --- !u!114 &937787687848577392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1738,6 +1742,9 @@ MonoBehaviour:
   playerMovement: {fileID: 8088511927586122320}
   playerRotation: {fileID: 3719450176393190257}
   animator: {fileID: 0}
+  battleConfig: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
+  weaponVisuals: {fileID: 7621427013165828002}
+  muzzleForward: 0.35
 --- !u!114 &7117570049234356537
 MonoBehaviour:
   m_ObjectHideFlags: 0

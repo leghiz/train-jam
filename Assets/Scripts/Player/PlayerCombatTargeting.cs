@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +23,11 @@ public class PlayerCombatTargeting : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerRotation playerRotation;
     [SerializeField] private Animator animator;
+
+    [Header("Shot")]
+    [SerializeField] private BattleConfig battleConfig;
+    [SerializeField] private WeaponVisuals weaponVisuals;
+    [SerializeField] private float muzzleForward = 0.35f;
 
     private Rigidbody rb;
 
@@ -236,6 +242,52 @@ public class PlayerCombatTargeting : MonoBehaviour
             return;
         }
         
+        PlayShotEffects();
+
         BattleManager.Instance.StartBattle(currentTarget);
+    }
+
+    private void PlayShotEffects()
+    {
+        if (battleConfig == null)
+            return;
+
+        Vector3 direction = currentTarget.transform.position + targetOffset - (transform.position + aimOriginOffset);
+        Vector3 position = transform.position + aimOriginOffset;
+
+        if (weaponVisuals != null && weaponVisuals.WeaponHolder != null)
+            position = weaponVisuals.WeaponHolder.position;
+
+        direction = direction.normalized;
+        position += direction * muzzleForward;
+
+        if (battleConfig.shotSmokePrefab != null)
+            Instantiate(battleConfig.shotSmokePrefab, position, Quaternion.LookRotation(direction));
+
+        Camera camera = Camera.main;
+
+        if (camera == null)
+            return;
+
+        if (battleConfig.shotSound != null)
+            AudioSource.PlayClipAtPoint(battleConfig.shotSound, camera.transform.position, battleConfig.shotVolume);
+
+        CameraShake shake = camera.GetComponent<CameraShake>();
+
+        if (shake != null)
+        {
+            shake.Shake(battleConfig.shotShake);
+            shake.Kick(battleConfig.shotKick * 0.6f);
+        }
+
+        StartCoroutine(PlayShell(camera.transform.position));
+    }
+
+    private IEnumerator PlayShell(Vector3 position)
+    {
+        yield return new WaitForSecondsRealtime(battleConfig.shellDelay);
+
+        if (battleConfig.shellSound != null)
+            AudioSource.PlayClipAtPoint(battleConfig.shellSound, position, battleConfig.shellVolume);
     }
 }

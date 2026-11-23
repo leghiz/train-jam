@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
@@ -78,6 +79,37 @@ public class EnemyShooter : MonoBehaviour
             bullet.damage = config.enemyDamage;
         if (bullet != null) 
             bullet.Init(dir, "red");
+
+        PlayShotEffects(spawnPos, dir);
+    }
+
+    private void PlayShotEffects(Vector3 position, Vector3 direction)
+    {
+        if (config.shotSmokePrefab != null)
+            Instantiate(config.shotSmokePrefab, position, Quaternion.LookRotation(direction));
+
+        if (config.shotSound != null)
+            AudioSource.PlayClipAtPoint(config.shotSound, position, config.shotVolume);
+
+        Camera camera = Camera.main;
+
+        if (camera != null)
+        {
+            CameraShake shake = camera.GetComponent<CameraShake>();
+
+            if (shake != null)
+                shake.Shake(config.enemyShotShake);
+        }
+
+        StartCoroutine(PlayShell(position));
+    }
+
+    private IEnumerator PlayShell(Vector3 position)
+    {
+        yield return new WaitForSeconds(config.shellDelay);
+
+        if (config.shellSound != null)
+            AudioSource.PlayClipAtPoint(config.shellSound, position, config.shellVolume);
     }
 
     private GameObject FindPlayer()

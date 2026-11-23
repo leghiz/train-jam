@@ -18,3 +18,5 @@ MonoBehaviour:
   - {fileID: 1985186993207405653, guid: 763e00d942fd06341b7e9ff48c721a4e, type: 3}
   loot: []
   randomLoot: []
+  noteLoot:
+  - {fileID: 3289489654767401667, guid: 50efecce1ef3e664abde7aa681334286, type: 3}

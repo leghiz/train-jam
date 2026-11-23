@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af368719f65e0f4f83b5d803283995e, type: 3}
   m_Name: BattleConfig
   m_EditorClassIdentifier: Assembly-CSharp::BattleConfig
-  playerTurnDuration: 5
-  enemyAimDelay: 0.8
+  playerTurnDuration: 7
+  enemyAimDelay: 1
   enemyAfterFireDelay: 0.8
   playerTurnChance: 0.7
   maxConsecutiveEnemyTurns: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
   armorPiercingChance: 0.5
   ammoQueueLength: 3
   playerDamage: 100
-  enemyDamage: 20
+  enemyDamage: 10
   headMultiplier: 1.2
   bodyMultiplier: 1
   legsMultiplier: 0.7
@@ -31,3 +31,18 @@ MonoBehaviour:
   armorPiercingArmorMultiplier: 1
   normalArmorMultiplier: 0.4
   endDelay: 1
+  shotSound: {fileID: 8300000, guid: a80e9ea618395374b8f9b2baacadf168, type: 3}
+  shotVolume: 0.7
+  shellSound: {fileID: 8300000, guid: a6de15af55e1912488395ab22df238fb, type: 3}
+  shellVolume: 0.5
+  shellDelay: 0.35
+  reloadSound: {fileID: 8300000, guid: 494567f031c31174a9e26149ca280c01, type: 3}
+  reloadVolume: 0.6
+  armorHitSound: {fileID: 8300000, guid: 228d523b0e986e94a885bd4c845c67f9, type: 3}
+  bodyHitSound: {fileID: 8300000, guid: 3970777841bcf40498a800186b263fdc, type: 3}
+  hitVolume: 0.8
+  shotSmokePrefab: {fileID: 3205688446329045955, guid: 1c9714951a1e74742a694c8c48444feb, type: 3}
+  shotShake: 0.55
+  shotKick: 1
+  enemyShotShake: 0.3
+  playerHitShake: 0.8

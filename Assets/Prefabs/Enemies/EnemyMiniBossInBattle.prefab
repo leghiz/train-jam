@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ae7db735c3d7c4eaef7ea2337fc2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyArmor
-  health: 100
+  health: 110
   config: {fileID: 11400000, guid: 6a488059542601240bd6208e20b6ad9b, type: 2}
 --- !u!114 &-7111943451812022399
 MonoBehaviour:
