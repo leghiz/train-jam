@@ -16,4 +16,7 @@ MonoBehaviour:
   displayName: "\u041E\u0440\u0443\u0436\u0438\u0435 B"
   worldPrefab: {fileID: 8358393583094786295, guid: 64269caa828822144bb2ab47753347bc, type: 3}
   magazineSize: 1
-  reloadTime: 1.5
+  reloadTime: 1
+  aimingSensitivity: 1
+  aimingOscillation: 20
+  damage: 30
