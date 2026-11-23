@@ -18,6 +18,7 @@ public class Shooting : MonoBehaviour
     private string[] bulletType = { "blue", "blue", "red", "blue", "red" };
     private int currentIndex = 0;
     private WeaponData weapon;
+    [SerializeField] private RectTransform crosshair;
 
     void Start()
     {
@@ -49,7 +50,7 @@ public class Shooting : MonoBehaviour
 
     void Shoot(string type)
     {
-        Ray ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = camera.ScreenPointToRay(crosshair.position);
         Vector3 spawnPos = ray.origin + ray.direction * spawnOffset;
         Quaternion spawnRotation = Quaternion.LookRotation(ray.direction);
 

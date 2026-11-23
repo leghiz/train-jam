@@ -2,14 +2,60 @@ using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
 {
-    [Header("Пуля")]
+    [Header("пїЅпїЅпїЅпїЅ")]
     public GameObject bulletPrefab;
 
-    [Header("Точка выстрела врага")]
+    [Header("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ")]
     public float spawnOffset = 0.5f;
 
-    [Header("Конфиг")]
+    [Header("пїЅпїЅпїЅпїЅпїЅпїЅ")]
     public BattleConfig config;
+    
+    [Header("РђРЅРёРјР°С†РёСЏ")]
+    [SerializeField] private Animator animator;
+    
+    private void Awake()
+    {
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+        
+        if (animator != null)
+        {
+            animator.SetBool("IsChasing", false);
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsShooting", false);
+        }
+    }
+    
+    private void OnEnable()
+    {
+        if (TurnManager.Instance != null)
+            TurnManager.Instance.OnTurnChanged += HandleTurnChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (TurnManager.Instance != null)
+            TurnManager.Instance.OnTurnChanged -= HandleTurnChanged;
+    }
+    
+    private void Start()
+    {
+        if (TurnManager.Instance != null)
+        {
+            TurnManager.Instance.OnTurnChanged -= HandleTurnChanged;
+            TurnManager.Instance.OnTurnChanged += HandleTurnChanged;
+            HandleTurnChanged(TurnManager.Instance.CurrentTurn);
+        }
+    }
+    
+    private void HandleTurnChanged(TurnManager.Turn currentTurn)
+    {
+        if (animator == null) return;
+
+        bool isEnemyTurn = (currentTurn == TurnManager.Turn.Enemy);
+        animator.SetBool("IsShooting", isEnemyTurn);
+    }
 
     public void Shoot()
     {
