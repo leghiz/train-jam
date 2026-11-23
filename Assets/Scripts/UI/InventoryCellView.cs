@@ -8,6 +8,7 @@ public class InventoryCellView : MonoBehaviour, IPointerEnterHandler, IPointerCl
     [SerializeField] private Image highlight;
     [SerializeField] private RectTransform hoverFrame;
     [SerializeField] private TMP_Text label;
+    [SerializeField] private ItemPreviewView preview;
 
     [SerializeField] private float highlightFadeTime = 0.08f;
     [SerializeField] private float frameGrow = 6f;
@@ -32,7 +33,10 @@ public class InventoryCellView : MonoBehaviour, IPointerEnterHandler, IPointerCl
     {
         label.text = "";
 
-        if (item != null)
+        if (preview != null)
+            preview.Show(item);
+
+        if (item != null && (preview == null || !preview.HasModel))
             label.text = item.displayName.ToUpper();
     }
 
@@ -46,6 +50,9 @@ public class InventoryCellView : MonoBehaviour, IPointerEnterHandler, IPointerCl
 
         isSelected = selected;
         hoverFrame.gameObject.SetActive(selected);
+
+        if (preview != null)
+            preview.SetSpinning(selected);
     }
 
     private void OnDisable()

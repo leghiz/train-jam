@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameRestart : MonoBehaviour
 {
@@ -79,15 +78,5 @@ public class GameRestart : MonoBehaviour
 
         Debug.Log("Новое прохождение началось!");
     }
-    
-    private void Update()
-    {
-        if (Keyboard.current != null &&
-            Keyboard.current.kKey.wasPressedThisFrame &&
-            !isRestarting)
-        {
-            playerStats.TakeDamage(playerStats.Health + 100);
-        }
-    }
-    
+ 
 }

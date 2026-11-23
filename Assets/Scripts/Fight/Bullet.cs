@@ -8,8 +8,15 @@ public class Bullet : MonoBehaviour
     public int damage = 25;
     public string type;
 
+    private bool hasHit;
+
     private void OnCollisionEnter(Collision collision)
     {
+        if (hasHit)
+            return;
+
+        hasHit = true;
+
         if (type == "blue")
             HandleBlueHit(collision);
         else

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ecec00be38c7b3d4f85435f627c7eaf1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ecec00be38c7b3d4f85435f627c7eaf1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -70,38 +70,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ecec00be38c7b3d4f85435f627c7eaf1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6641332123196297234}
+      addedObject: {fileID: 1790250001406090119}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ecec00be38c7b3d4f85435f627c7eaf1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1790250001406090119}
+      addedObject: {fileID: 2952909223360021234}
   m_SourcePrefab: {fileID: 100100000, guid: ecec00be38c7b3d4f85435f627c7eaf1, type: 3}
 --- !u!1 &8383194068118676774 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ecec00be38c7b3d4f85435f627c7eaf1, type: 3}
   m_PrefabInstance: {fileID: 8689272474605262967}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &6641332123196297234
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8383194068118676774}
-  m_Material: {fileID: 13400000, guid: c92fb2d48e8fc4c49953773c8dde9181, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2534964839176971238, guid: ecec00be38c7b3d4f85435f627c7eaf1, type: 3}
 --- !u!114 &1790250001406090119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,3 +94,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Furniture
   isSurface: 0
   surfaceMargin: 0.05
+--- !u!64 &2952909223360021234
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8383194068118676774}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: ecec00be38c7b3d4f85435f627c7eaf1, type: 3}

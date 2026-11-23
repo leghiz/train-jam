@@ -9,6 +9,7 @@ public class DoorInteraction : MonoBehaviour
     private PlayerStats playerStats;
     private bool playerNearby;
     private WagonLayout wagon;
+    private InventoryView inventoryView;
 
     public bool PlayerNearby => playerNearby;
     public bool IsLocked => requiresKey && (playerStats == null || !playerStats.HasKey);
@@ -27,11 +28,15 @@ public class DoorInteraction : MonoBehaviour
     private void Start()
     {
         generator = FindFirstObjectByType<TrainGenerator>();
+        inventoryView = FindAnyObjectByType<InventoryView>();
     }
 
     private void Update()
     {
         if (!playerNearby || Keyboard.current == null)
+            return;
+
+        if (inventoryView != null && inventoryView.IsOpen)
             return;
 
         if (Keyboard.current.fKey.wasPressedThisFrame)

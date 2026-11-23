@@ -26,8 +26,15 @@ public class InventoryView : MonoBehaviour
 
     [SerializeField] private string healthColor = "#7FD36B";
     [SerializeField] private string stressColor = "#F2B33D";
+    [SerializeField] private string damageColor = "#E0604F";
+    [SerializeField] private string ammoColor = "#6FA8DC";
 
     [SerializeField] private AudioSource uiSound;
+
+    [SerializeField] private ItemPreviewView weaponPreview;
+    [SerializeField] private ItemPreviewView selectedPreview;
+    [SerializeField] private InventoryCellView weaponCell;
+    [SerializeField] private NoteView noteView;
 
     private int selectedIndex = -1;
     private bool wasMovementEnabled;
@@ -50,6 +57,9 @@ public class InventoryView : MonoBehaviour
         {
             cells[i].Init(this, i);
         }
+
+        if (weaponCell != null)
+            weaponCell.Init(this, cells.Length);
 
         window.SetActive(false);
         details.SetActive(false);
@@ -105,6 +115,9 @@ public class InventoryView : MonoBehaviour
         if (weapon != null)
             weaponLabel.text = weapon.displayName.ToUpper();
 
+        if (weaponPreview != null)
+            weaponPreview.Show(weapon);
+
         MoveCursor();
         RefreshDetails();
     }
@@ -129,6 +142,9 @@ public class InventoryView : MonoBehaviour
         details.SetActive(false);
         window.SetActive(false);
 
+        if (selectedPreview != null)
+            selectedPreview.Show(null);
+
         if (!IsBattle)
             UnlockPlayer();
 
@@ -146,6 +162,9 @@ public class InventoryView : MonoBehaviour
         {
             cells[i].SetSelected(i == index);
         }
+
+        if (weaponCell != null)
+            weaponCell.SetSelected(index == cells.Length);
 
         RefreshDetails();
     }
@@ -228,6 +247,12 @@ public class InventoryView : MonoBehaviour
         if (playerTargeting != null && playerTargeting.IsAiming)
             return;
 
+        if (noteView == null)
+            noteView = FindAnyObjectByType<NoteView>();
+
+        if (noteView != null && noteView.IsBusy)
+            return;
+
         Open();
     }
 
@@ -277,12 +302,35 @@ public class InventoryView : MonoBehaviour
         if (cursorRing == null || mouse == null)
             return;
 
-        cursorRing.position = mouse.position.ReadValue();
+        Vector3 point;
+        RectTransform parent = cursorRing.parent as RectTransform;
+
+        if (RectTransformUtility.ScreenPointToWorldPointInRectangle(parent, mouse.position.ReadValue(), GetCanvasCamera(), out point))
+            cursorRing.position = point;
+    }
+
+    private Camera GetCanvasCamera()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>();
+
+        if (canvas == null || canvas.rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay)
+            return null;
+
+        return canvas.rootCanvas.worldCamera;
     }
 
     private void RefreshDetails()
     {
+        if (weaponCell != null && selectedIndex == cells.Length)
+        {
+            RefreshWeaponDetails();
+            return;
+        }
+
         ItemData item = GetItem(selectedIndex);
+
+        if (selectedPreview != null)
+            selectedPreview.Show(item);
 
         if (item == null)
         {
@@ -296,6 +344,29 @@ public class InventoryView : MonoBehaviour
 
         if (dropPrompt != null)
             dropPrompt.SetActive(CanDrop(item));
+
+        details.SetActive(true);
+    }
+
+    private void RefreshWeaponDetails()
+    {
+        WeaponData weapon = GetWeapon();
+
+        if (selectedPreview != null)
+            selectedPreview.Show(weapon);
+
+        if (weapon == null)
+        {
+            details.SetActive(false);
+            return;
+        }
+
+        detailsTitle.text = weapon.displayName.ToUpper();
+        detailsText.text = GetWeaponDescription(weapon);
+        usePrompt.SetActive(false);
+
+        if (dropPrompt != null)
+            dropPrompt.SetActive(false);
 
         details.SetActive(true);
     }
@@ -345,6 +416,16 @@ public class InventoryView : MonoBehaviour
             return null;
 
         return current.Slots[index];
+    }
+
+    private string GetWeaponDescription(WeaponData weapon)
+    {
+        if (!string.IsNullOrEmpty(weapon.description))
+            return weapon.description;
+
+        return "<color=" + damageColor + ">Урон</color> " + weapon.damage
+            + ". <color=" + ammoColor + ">Магазин</color> " + weapon.magazineSize
+            + ". <color=" + ammoColor + ">Перезарядка</color> " + weapon.reloadTime + " с.";
     }
 
     private string GetDescription(ItemData item)
