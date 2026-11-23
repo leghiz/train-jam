@@ -26,6 +26,8 @@ public class InventoryView : MonoBehaviour
 
     [SerializeField] private string healthColor = "#7FD36B";
     [SerializeField] private string stressColor = "#F2B33D";
+    [SerializeField] private string damageColor = "#E0604F";
+    [SerializeField] private string ammoColor = "#6FA8DC";
 
     [SerializeField] private AudioSource uiSound;
 
@@ -360,7 +362,7 @@ public class InventoryView : MonoBehaviour
         }
 
         detailsTitle.text = weapon.displayName.ToUpper();
-        detailsText.text = "Урон " + weapon.damage + ". Магазин " + weapon.magazineSize + ". Перезарядка " + weapon.reloadTime + " с.";
+        detailsText.text = GetWeaponDescription(weapon);
         usePrompt.SetActive(false);
 
         if (dropPrompt != null)
@@ -414,6 +416,16 @@ public class InventoryView : MonoBehaviour
             return null;
 
         return current.Slots[index];
+    }
+
+    private string GetWeaponDescription(WeaponData weapon)
+    {
+        if (!string.IsNullOrEmpty(weapon.description))
+            return weapon.description;
+
+        return "<color=" + damageColor + ">Урон</color> " + weapon.damage
+            + ". <color=" + ammoColor + ">Магазин</color> " + weapon.magazineSize
+            + ". <color=" + ammoColor + ">Перезарядка</color> " + weapon.reloadTime + " с.";
     }
 
     private string GetDescription(ItemData item)

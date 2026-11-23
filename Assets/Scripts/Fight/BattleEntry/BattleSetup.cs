@@ -54,8 +54,7 @@ public class BattleSetup : MonoBehaviour
 
         battlePlayerStats.CopyFrom(originalPlayerStats);
 
-        InitializeCamera(BattleContext.Weapon);
-        Debug.Log("‡Îˇ ÛÎ˛");
+        InitializeCrosshair(BattleContext.Weapon);
     }
 
     private void SpawnEnemies()
@@ -100,7 +99,7 @@ public class BattleSetup : MonoBehaviour
         originalPlayerStats.CopyFrom(battlePlayerStats);
     }
 
-    private void InitializeCamera(WeaponData weapon)
+    private void InitializeCrosshair(WeaponData weapon)
     {
         if (weapon == null)
         {
@@ -108,14 +107,14 @@ public class BattleSetup : MonoBehaviour
             return;
         }
 
-        CameraParallax cameraParallax = Camera.main.GetComponentInChildren<CameraParallax>();
+        Crosshair crosshair = FindFirstObjectByType<Crosshair>();
 
-        if (cameraParallax == null)
+        if (crosshair == null)
         {
-            Debug.Log("œ¿–¿ÀÀ¿ —¿ Õ≈“");
+            Debug.Log("œ–»÷≈À¿ Õ≈“");
             return;
         }
 
-        cameraParallax.SetWeapon(weapon);
+        crosshair.SetWeapon(weapon);
     }
 }
