@@ -17,6 +17,6 @@ MonoBehaviour:
   worldPrefab: {fileID: 8358393583094786295, guid: 64269caa828822144bb2ab47753347bc, type: 3}
   magazineSize: 1
   reloadTime: 1
-  aimingSensitivity: 1
-  aimingOscillation: 20
+  aimingSpeed: 5
+  aimingOscillation: 7
   damage: 30

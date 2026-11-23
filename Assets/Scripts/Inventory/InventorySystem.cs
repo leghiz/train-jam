@@ -85,7 +85,10 @@ public class InventorySystem : MonoBehaviour
             target.Heal(item.heal);
 
         if (item.stressChange < 0f)
+        {
             target.ReduceStress(-item.stressChange);
+            FindAnyObjectByType<Crosshair>()?.PauseShake();
+        }
         else if (item.stressChange > 0f)
             target.AddStress(item.stressChange);
 
