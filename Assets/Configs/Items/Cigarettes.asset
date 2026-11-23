@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "\u0421\u0438\u0433\u0430\u0440\u0435\u0442\u044B"
   worldPrefab: {fileID: 5343339213131897153, guid: 8a5bd16715759ee4196c2104ba65426c, type: 3}
   previewRotation: {x: 0, y: 0, z: 0}
-  description: "\u0421\u043D\u0438\u043C\u0430\u044E\u0442 \u0441\u0442\u0440\u0435\u0441\u0441 \u0432 \u0431\u043E\u044E"
+  description: "\u0421\u043D\u0438\u043C\u0430\u044E\u0442 <color=#F2B33D>\u0441\u0442\u0440\u0435\u0441\u0441</color> \u0432 \u0431\u043E\u044E"
   heal: 0
   stressChange: -30
   isKey: 0

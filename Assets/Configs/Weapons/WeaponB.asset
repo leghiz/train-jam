@@ -16,8 +16,9 @@ MonoBehaviour:
   displayName: "\u041E\u0440\u0443\u0436\u0438\u0435 B"
   worldPrefab: {fileID: 8358393583094786295, guid: 64269caa828822144bb2ab47753347bc, type: 3}
   previewRotation: {x: -90, y: 0, z: 0}
+  description: "\u041B\u0451\u0433\u043A\u043E\u0435 \u043E\u0440\u0443\u0436\u0438\u0435 \u0441 <color=#F2B33D>\u0432\u044B\u0441\u043E\u043A\u043E\u0439</color> \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C\u044E \u043D\u0430\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0438 <color=#6FA8DC>\u0431\u044B\u0441\u0442\u0440\u043E\u0439</color> \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u043E\u0439."
   magazineSize: 1
-  reloadTime: 1
-  aimingSpeed: 5
+  reloadTime: 1.5
+  aimingSpeed: 8
   aimingOscillation: 7
   damage: 30

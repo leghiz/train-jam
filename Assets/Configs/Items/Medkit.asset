@@ -15,7 +15,8 @@ MonoBehaviour:
   id: medkit
   displayName: "\u0410\u043F\u0442\u0435\u0447\u043A\u0430"
   worldPrefab: {fileID: 3208249759482208695, guid: bdaf50c4e1cee26408209bacd9a921b9, type: 3}
-  description: 
+  previewRotation: {x: 0, y: 0, z: 0}
+  description: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442 <color=#7FD36B>\u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435</color>"
   heal: 40
   stressChange: 0
   isKey: 0
