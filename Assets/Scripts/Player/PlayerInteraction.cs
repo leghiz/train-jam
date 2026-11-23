@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private float pickupRadius = 2f;
+    [SerializeField] private AudioSource pickupSound;
 
     private InventorySystem inventory;
 
@@ -65,6 +66,7 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        PlayPickupSound();
         Debug.Log($"Подобрано: {nearest.Item.displayName}");
         nearest.gameObject.SetActive(false);
         Destroy(nearest.gameObject);
@@ -74,6 +76,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         Transform place = pickup.transform;
         WeaponData previous = inventory.EquipWeapon(weapon);
+        PlayPickupSound();
 
         if (previous != null && previous.worldPrefab != null)
             Instantiate(previous.worldPrefab, place.position, place.rotation, place.parent);
@@ -84,6 +87,15 @@ public class PlayerInteraction : MonoBehaviour
 
         pickup.gameObject.SetActive(false);
         Destroy(pickup.gameObject);
+    }
+
+    private void PlayPickupSound()
+    {
+        if (pickupSound == null)
+            return;
+
+        pickupSound.transform.position = transform.position;
+        pickupSound.Play();
     }
 
     private void OnDrawGizmosSelected()

@@ -11,6 +11,7 @@ public class NoteView : MonoBehaviour
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private GameObject closeHint;
     [SerializeField] private Light modelLight;
+    [SerializeField] private AudioSource openSound;
 
     [SerializeField] private float charactersPerSecond = 40f;
     [SerializeField] private float modelDistance = 0.6f;
@@ -99,6 +100,9 @@ public class NoteView : MonoBehaviour
             PlaceModel(Camera.main);
 
         LockPlayer();
+
+        if (openSound != null)
+            openSound.Play();
 
         isOpen = true;
         openedFrame = Time.frameCount;

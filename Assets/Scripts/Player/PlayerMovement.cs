@@ -5,10 +5,18 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
-    
+
+    [SerializeField] private AudioSource footstepSound;
+    [SerializeField] private AudioClip[] footstepClips;
+    [SerializeField] private float stepInterval = 0.33f;
+    [SerializeField] private float minPitch = 0.85f;
+    [SerializeField] private float maxPitch = 1.15f;
+
     private Rigidbody rb;
     private Animator animator;
     private Vector2 input;
+    private float stepTimer;
+    private int lastStep = -1;
 
     private void Awake()
     {
@@ -45,6 +53,45 @@ public class PlayerMovement : MonoBehaviour
             bool isRunning = input.magnitude > 0.1f;
             animator.SetBool("IsRunning", isRunning);
         }
+
+        UpdateFootsteps();
+    }
+
+    private void UpdateFootsteps()
+    {
+        if (footstepSound == null)
+            return;
+
+        if (input.magnitude <= 0.1f)
+        {
+            stepTimer = 0f;
+            return;
+        }
+
+        stepTimer -= Time.deltaTime;
+
+        if (stepTimer > 0f)
+            return;
+
+        footstepSound.transform.position = transform.position;
+        footstepSound.pitch = Random.Range(minPitch, maxPitch);
+        footstepSound.clip = PickFootstep();
+        footstepSound.Play();
+        stepTimer = stepInterval;
+    }
+
+    private AudioClip PickFootstep()
+    {
+        if (footstepClips == null || footstepClips.Length == 0)
+            return footstepSound.clip;
+
+        int index = Random.Range(0, footstepClips.Length);
+
+        if (footstepClips.Length > 1 && index == lastStep)
+            index = (index + 1) % footstepClips.Length;
+
+        lastStep = index;
+        return footstepClips[index];
     }
 
     private void FixedUpdate()
@@ -57,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         input = Vector2.zero;
+        stepTimer = 0f;
 
         if (animator != null)
             animator.SetBool("IsRunning", false);
