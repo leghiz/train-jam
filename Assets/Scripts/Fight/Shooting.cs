@@ -52,7 +52,8 @@ public class Shooting : MonoBehaviour
     {
         Ray ray = camera.ScreenPointToRay(crosshair.position);
         Vector3 spawnPos = ray.origin + ray.direction * spawnOffset;
-        Quaternion spawnRotation = Quaternion.LookRotation(ray.direction);
+        Vector3 flatDirection = new Vector3(ray.direction.x, 0f, ray.direction.z);
+        Quaternion spawnRotation = Quaternion.LookRotation(flatDirection);
 
         GameObject bulletObj = Instantiate(bulletPrefab, spawnPos, spawnRotation);
         IgnorePlayer(bulletObj);
